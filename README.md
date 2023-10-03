@@ -7,5 +7,5 @@ A Golang wrapper for the Prestashop REST API. Easily interact with the Prestasho
 To install this Prestashop REST API Golang Wrapper, use `go get`:
 
 ```
-go get github.com/lciprian/prestashop-api-go
+go get github.com/lciprian/prestashopApi
 ```
