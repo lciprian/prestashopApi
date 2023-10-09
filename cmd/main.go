@@ -8,10 +8,18 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "http://example.com"
-	apiKey := "UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX"
+	urlStr := "https://presta.local"
+	apiKey := "RUU4RVk5QUtGN0xORDZaN1FBVzVMTUQ1Q0czQkNUOUg6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
 	fmt.Println("-----------", ps)
+
+	resources, err := ps.Resource.ListResources()
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+	fmt.Println("----resources-----", resources)
+
 	fmt.Println("----done-----")
 }

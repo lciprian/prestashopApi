@@ -1,6 +1,7 @@
 package prestashopApi
 
 import (
+	"crypto/tls"
 	"net/http"
 	"net/url"
 )
@@ -21,23 +22,24 @@ type PrestaShop struct {
 	BaseURL        *url.URL
 	apiKey         string
 	CustomerSecret string
+	Resource       ResourceService
 	Product        ProductService
 }
 
-func NewPrestaShop(appName, urlStr, customerKey string) *PrestaShop {
+func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
 	baseURL, err := url.Parse(urlStr)
 	if err != nil {
 		panic(err)
 	}
 
 	ps := PrestaShop{
-		AppName:        appName,
-		BaseURL:        baseURL,
-		apiKey:         customerKey,
-		CustomerSecret: customerKey,
+		AppName: appName,
+		BaseURL: baseURL,
 	}
 
-	client := ps.newClient()
+	client := ps.newClient(apiKey)
+	ps.Resource = newResourceService(client)
+
 	ps.Product = ProductService{
 		Client: client,
 	}
@@ -45,11 +47,16 @@ func NewPrestaShop(appName, urlStr, customerKey string) *PrestaShop {
 	return &ps
 }
 
-func (ps PrestaShop) newClient() *Client {
+func (ps *PrestaShop) newClient(apiKey string) *Client {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+
 	client := Client{
-		client:  &http.Client{},
+		client:  &http.Client{Transport: tr},
 		version: apiVersion,
 		baseURL: ps.BaseURL,
+		apiKey:  apiKey,
 	}
 
 	return &client

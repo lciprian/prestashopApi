@@ -1,0 +1,81 @@
+{
+  "category": {
+    "id": 1,
+    "id_parent": "0",
+    "level_depth": "0",
+    "nb_products_recursive": "20",
+    "active": "1",
+    "id_shop_default": "1",
+    "is_root_category": "0",
+    "position": "0",
+    "date_add": "2023-10-05 11:40:29",
+    "date_upd": "2023-10-05 11:40:29",
+    "name": [
+      {
+        "id": "1",
+        "value": "Root"
+      },
+      {
+        "id": "2",
+        "value": "Radacina"
+      }
+    ],
+    "link_rewrite": [
+      {
+        "id": "1",
+        "value": "root"
+      },
+      {
+        "id": "2",
+        "value": "radacina"
+      }
+    ],
+    "description": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "meta_title": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "meta_description": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "meta_keywords": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "associations": {
+      "categories": [
+        {
+          "id": "2"
+        }
+      ]
+    }
+  }
+}
