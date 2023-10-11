@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 var (
@@ -12,18 +13,16 @@ var (
 
 const (
 	UserAgent            = "prestashopApi/1.0.0"
-	defaultHttpTimeout   = 10
+	defaultHttpTimeout   = 30
 	defaultApiPathPrefix = "/api"
 	defaultVersion       = "1.7.8.8"
 )
 
 type PrestaShop struct {
-	AppName        string
-	BaseURL        *url.URL
-	apiKey         string
-	CustomerSecret string
-	Resource       ResourceService
-	Product        ProductService
+	AppName  string
+	BaseURL  *url.URL
+	Resource ResourceService
+	Product  ProductService
 }
 
 func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
@@ -39,9 +38,10 @@ func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
 
 	client := ps.newClient(apiKey)
 	ps.Resource = newResourceService(client)
+	ps.Product = newProductService(client)
 
 	ps.Product = ProductService{
-		Client: client,
+		client: client,
 	}
 
 	return &ps
@@ -53,10 +53,13 @@ func (ps *PrestaShop) newClient(apiKey string) *Client {
 	}
 
 	client := Client{
-		client:  &http.Client{Transport: tr},
 		version: apiVersion,
 		baseURL: ps.BaseURL,
 		apiKey:  apiKey,
+		client: &http.Client{
+			Transport: tr,
+			Timeout:   time.Second * defaultHttpTimeout,
+		},
 	}
 
 	return &client

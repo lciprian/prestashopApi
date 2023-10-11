@@ -16,7 +16,7 @@ type Client struct {
 	apiKey  string
 }
 
-func (c *Client) NewRequest(method, relPath string, body interface{}) (*http.Request, error) {
+func (c *Client) NewRequest(method, relPath string, params url.Values, body interface{}) (*http.Request, error) {
 	rel, err := url.Parse(fmt.Sprintf("api/%s", relPath))
 	if err != nil {
 		return nil, err
@@ -25,8 +25,11 @@ func (c *Client) NewRequest(method, relPath string, body interface{}) (*http.Req
 	// Make the full url based on the relative path
 	u := c.baseURL.ResolveReference(rel)
 
-	var js []byte = nil
+	if params != nil {
+		u.RawQuery = params.Encode()
+	}
 
+	var js []byte = nil
 	if body != nil {
 		js, err = json.Marshal(body)
 		if err != nil {
@@ -49,8 +52,8 @@ func (c *Client) NewRequest(method, relPath string, body interface{}) (*http.Req
 	return req, nil
 }
 
-func (c *Client) Get(path string, resource *[]Resource) error {
-	req, err := c.NewRequest("GET", path, &resource)
+func (c *Client) Get(path string, params url.Values, resource interface{}) error {
+	req, err := c.NewRequest("GET", path, params, nil)
 	if err != nil {
 		return err
 	}
@@ -61,8 +64,26 @@ func (c *Client) Get(path string, resource *[]Resource) error {
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
+	if err := c.checkResponseError(resp); err != nil {
+		return err
+	}
 
-	fmt.Printf("Body : %s", body)
+	decoder := json.NewDecoder(resp.Body)
+	if err := decoder.Decode(&resource); err != nil {
+		return err
+	}
+
 	return nil
+}
+
+func (c *Client) checkResponseError(r *http.Response) error {
+	if http.StatusOK <= r.StatusCode && r.StatusCode < http.StatusMultipleChoices {
+		return nil
+	}
+
+	if _, err := io.ReadAll(r.Body); err != nil {
+		return fmt.Errorf("response message error: %s", err.Error())
+	}
+
+	return fmt.Errorf("response error status: %d", r.StatusCode)
 }

@@ -22,7 +22,7 @@ func newResourceService(client *Client) ResourceService {
 
 func (s *ResourceService) ListResources() ([]Resource, error) {
 	resource := make([]Resource, 0)
-	err := s.client.Get(resourceBasePath, &resource)
+	err := s.client.Get(resourceBasePath, nil, &resource)
 	if err != nil {
 		return nil, err
 	}

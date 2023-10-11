@@ -14,12 +14,19 @@ func main() {
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
 	fmt.Println("-----------", ps)
 
-	resources, err := ps.Resource.ListResources()
+	//resources, err := ps.Resource.ListResources()
+	//if err != nil {
+	//	fmt.Println("----done-----", err)
+	//	return
+	//}
+	//fmt.Println("----resources-----", resources)
+
+	products, err := ps.Product.ListProducts()
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
-	fmt.Println("----resources-----", resources)
+	fmt.Println("----resources-----", products)
 
 	fmt.Println("----done-----")
 }
