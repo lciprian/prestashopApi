@@ -68,6 +68,10 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 		return err
 	}
 
+	if body, err := io.ReadAll(resp.Body); err == nil {
+		fmt.Printf("Body : %s", body)
+	}
+
 	decoder := json.NewDecoder(resp.Body)
 	if err := decoder.Decode(&resource); err != nil {
 		return err

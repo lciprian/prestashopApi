@@ -21,7 +21,7 @@ func main() {
 	//}
 	//fmt.Println("----resources-----", resources)
 
-	products, err := ps.Product.ListProducts()
+	products, err := ps.Product.ListProducts(2, 1)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
