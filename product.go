@@ -3,6 +3,8 @@ package prestashopApi
 import (
 	"fmt"
 	"net/url"
+
+	"github.com/lciprian/prestashopApi/models"
 )
 
 var productBasePath = "products"
@@ -11,13 +13,8 @@ type ProductService struct {
 	client *Client
 }
 
-type Product struct {
-	Id   int    `json:"id,omitempty"`
-	Name string `json:"name,omitempty"`
-}
-
 type ProductList struct {
-	Products []Product `json:"products,omitempty"`
+	Products []models.Product `json:"products,omitempty"`
 }
 
 func newProductService(client *Client) ProductService {
@@ -26,7 +23,7 @@ func newProductService(client *Client) ProductService {
 	}
 }
 
-func (s *ProductService) ListProducts(limit, page int) ([]Product, error) {
+func (s *ProductService) ListProducts(limit, page int) ([]models.Product, error) {
 	productList := ProductList{}
 
 	if page > 0 {
