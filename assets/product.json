@@ -1,0 +1,252 @@
+{
+  "product": {
+    "id": 18,
+    "id_manufacturer": "2",
+    "id_supplier": "2",
+    "id_category_default": "7",
+    "new": null,
+    "cache_default_attribute": "36",
+    "id_default_image": "20",
+    "id_default_combination": "36",
+    "id_tax_rules_group": "1",
+    "position_in_category": "3",
+    "manufacturer_name": "Graphic Corner",
+    "quantity": "0",
+    "type": "simple",
+    "id_shop_default": "1",
+    "reference": "demo_10",
+    "supplier_reference": "",
+    "location": "",
+    "width": "0.000000",
+    "height": "0.000000",
+    "depth": "0.000000",
+    "weight": "0.300000",
+    "quantity_discount": "0",
+    "ean13": "",
+    "isbn": "",
+    "upc": "",
+    "mpn": "",
+    "cache_is_pack": "0",
+    "cache_has_attachments": "0",
+    "is_virtual": "0",
+    "state": "1",
+    "additional_delivery_times": "1",
+    "delivery_in_stock": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "delivery_out_stock": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "product_type": "combinations",
+    "on_sale": "0",
+    "online_only": "0",
+    "ecotax": "0.000000",
+    "minimal_quantity": "1",
+    "low_stock_threshold": null,
+    "low_stock_alert": "0",
+    "price": "12.900000",
+    "wholesale_price": "0.000000",
+    "unity": "",
+    "unit_price_ratio": "0.000000",
+    "additional_shipping_cost": "0.000000",
+    "customizable": "0",
+    "text_fields": "0",
+    "uploadable_files": "0",
+    "active": "1",
+    "redirect_type": "301-category",
+    "id_type_redirected": "0",
+    "available_for_order": "1",
+    "available_date": "0000-00-00",
+    "show_condition": "0",
+    "condition": "new",
+    "show_price": "1",
+    "indexed": "1",
+    "visibility": "both",
+    "advanced_stock_management": "0",
+    "date_add": "2023-10-05 11:41:15",
+    "date_upd": "2023-10-05 11:41:15",
+    "pack_stock_type": "3",
+    "meta_description": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "meta_keywords": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "meta_title": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "link_rewrite": [
+      {
+        "id": "1",
+        "value": "hummingbird-notebook"
+      },
+      {
+        "id": "2",
+        "value": "hummingbird-notebook"
+      }
+    ],
+    "name": [
+      {
+        "id": "1",
+        "value": "Hummingbird notebook"
+      },
+      {
+        "id": "2",
+        "value": "Hummingbird notebook"
+      }
+    ],
+    "description": [
+      {
+        "id": "1",
+        "value": "<p>The Mountain fox notebook is the best option to write down your most ingenious ideas. At work, at home or when traveling, its endearing design and manufacturing quality will make you feel like writing! 90 gsm paper / double spiral binding.</p>"
+      },
+      {
+        "id": "2",
+        "value": "<p>The Mountain fox notebook is the best option to write down your most ingenious ideas. At work, at home or when traveling, its endearing design and manufacturing quality will make you feel like writing! 90 gsm paper / double spiral binding.</p>"
+      }
+    ],
+    "description_short": [
+      {
+        "id": "1",
+        "value": "<p>120 sheets notebook with hard cover made of recycled cardboard. 16x22cm</p>"
+      },
+      {
+        "id": "2",
+        "value": "<p>120 sheets notebook with hard cover made of recycled cardboard. 16x22cm</p>"
+      }
+    ],
+    "available_now": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "available_later": [
+      {
+        "id": "1",
+        "value": ""
+      },
+      {
+        "id": "2",
+        "value": ""
+      }
+    ],
+    "associations": {
+      "categories": [
+        {
+          "id": "2"
+        },
+        {
+          "id": "6"
+        },
+        {
+          "id": "7"
+        }
+      ],
+      "images": [
+        {
+          "id": "20"
+        }
+      ],
+      "combinations": [
+        {
+          "id": "36"
+        },
+        {
+          "id": "37"
+        },
+        {
+          "id": "38"
+        },
+        {
+          "id": "39"
+        }
+      ],
+      "product_option_values": [
+        {
+          "id": "22"
+        },
+        {
+          "id": "23"
+        },
+        {
+          "id": "24"
+        },
+        {
+          "id": "25"
+        }
+      ],
+      "product_features": [
+        {
+          "id": "1",
+          "id_feature_value": "5"
+        },
+        {
+          "id": "2",
+          "id_feature_value": "10"
+        }
+      ],
+      "stock_availables": [
+        {
+          "id": "18",
+          "id_product_attribute": "0"
+        },
+        {
+          "id": "55",
+          "id_product_attribute": "36"
+        },
+        {
+          "id": "56",
+          "id_product_attribute": "37"
+        },
+        {
+          "id": "57",
+          "id_product_attribute": "38"
+        },
+        {
+          "id": "58",
+          "id_product_attribute": "39"
+        }
+      ]
+    }
+  }
+}
