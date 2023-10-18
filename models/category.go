@@ -1,41 +1,23 @@
 package models
 
 type Category struct {
-	Id                  int    `json:"id"`
-	IdParent            int    `json:"id_parent"`
-	LevelDepth          int    `json:"level_depth"`
-	NbProductsRecursive int    `json:"nb_products_recursive"`
-	Active              int    `json:"active"`
-	IdShopDefault       int    `json:"id_shop_default"`
-	IsRootCategory      int    `json:"is_root_category"`
-	Position            int    `json:"position"`
-	DateAdd             string `json:"date_add"`
-	DateUpd             string `json:"date_upd"`
-	Name                []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"name"`
-	LinkRewrite []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"link_rewrite"`
-	Description []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"description"`
-	MetaTitle []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"meta_title"`
-	MetaDescription []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"meta_description"`
-	MetaKeywords []struct {
-		Id    int    `json:"id"`
-		Value string `json:"value"`
-	} `json:"meta_keywords"`
-	Associations struct {
-		Categories [][]interface{} `json:"categories"`
-	} `json:"associations"`
+	Id                  int        `json:"id,omitempty"`
+	IdParent            int        `json:"id_parent,omitempty"`
+	LevelDepth          int        `json:"level_depth,omitempty"`
+	NbProductsRecursive int        `json:"nb_products_recursive,omitempty"`
+	Active              int        `json:"active,omitempty"`
+	IdShopDefault       int        `json:"id_shop_default,omitempty"`
+	IsRootCategory      int        `json:"is_root_category,omitempty"`
+	Position            int        `json:"position,omitempty"`
+	DateAdd             string     `json:"date_add,omitempty"`
+	DateUpd             string     `json:"date_upd,omitempty"`
+	Name                []MetaData `json:"name,omitempty"`
+	LinkRewrite         []MetaData `json:"link_rewrite,omitempty"`
+	Description         []MetaData `json:"description,omitempty"`
+	MetaTitle           []MetaData `json:"meta_title,omitempty"`
+	MetaDescription     []MetaData `json:"meta_description,omitempty"`
+	MetaKeywords        []MetaData `json:"meta_keywords,omitempty"`
+	Associations        struct {
+		Categories [][]interface{} `json:"categories,omitempty"`
+	}
 }

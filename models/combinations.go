@@ -24,5 +24,5 @@ type Combinations struct {
 	Associations      struct {
 		ProductOptionValues [][]interface{} `json:"product_option_values"`
 		Images              [][]interface{} `json:"images"`
-	} `json:"associations"`
+	}
 }
