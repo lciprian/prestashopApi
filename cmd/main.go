@@ -32,11 +32,11 @@ func getResources(ps *prestashopApi.PrestaShop) {
 }
 
 func getProducts(ps *prestashopApi.PrestaShop) {
-	products, err := ps.Product.ListProducts(2, 1)
+	products, err := ps.Product.ListProducts(2, 2)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
 
-	fmt.Printf("----resources-----%#v", products[0])
+	fmt.Printf("----resources-----%#v", products)
 }
