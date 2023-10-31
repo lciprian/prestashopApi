@@ -8,13 +8,13 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "https://presta.local"
-	apiKey := "RUU4RVk5QUtGN0xORDZaN1FBVzVMTUQ1Q0czQkNUOUg6"
+	urlStr := "http://presto.local"
+	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
 	fmt.Println("-----------", ps)
 
-	//	getResources(ps)
+	//getResources(ps)
 
 	getProducts(ps)
 

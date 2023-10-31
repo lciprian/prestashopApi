@@ -2,19 +2,19 @@ package models
 
 type Product struct {
 	Id                      int                 `json:"id"`
-	IdManufacturer          int                 `json:"id_manufacturer"`
-	IdSupplier              int                 `json:"id_supplier"`
-	IdCategoryDefault       int                 `json:"id_category_default"`
+	IdManufacturer          string              `json:"id_manufacturer"`
+	IdSupplier              string              `json:"id_supplier"`
+	IdCategoryDefault       string              `json:"id_category_default"`
 	New                     interface{}         `json:"new"`
-	CacheDefaultAttribute   int                 `json:"cache_default_attribute"`
-	IdDefaultImage          int                 `json:"id_default_image"`
-	IdDefaultCombination    int                 `json:"id_default_combination"`
-	IdTaxRulesGroup         int                 `json:"id_tax_rules_group"`
-	PositionInCategory      int                 `json:"position_in_category"`
+	CacheDefaultAttribute   string              `json:"cache_default_attribute"`
+	IdDefaultImage          string              `json:"id_default_image"`
+	IdDefaultCombination    string              `json:"id_default_combination"`
+	IdTaxRulesGroup         string              `json:"id_tax_rules_group"`
+	PositionInCategory      string              `json:"position_in_category"`
 	ManufacturerName        string              `json:"manufacturer_name"`
-	Quantity                int                 `json:"quantity"`
+	Quantity                string              `json:"quantity"`
 	Type                    string              `json:"type"`
-	IdShopDefault           int                 `json:"id_shop_default"`
+	IdShopDefault           string              `json:"id_shop_default"`
 	Reference               string              `json:"reference"`
 	SupplierReference       string              `json:"supplier_reference"`
 	Location                string              `json:"location"`
@@ -22,47 +22,47 @@ type Product struct {
 	Height                  string              `json:"height"`
 	Depth                   string              `json:"depth"`
 	Weight                  string              `json:"weight"`
-	QuantityDiscount        int                 `json:"quantity_discount"`
+	QuantityDiscount        string              `json:"quantity_discount"`
 	Ean13                   string              `json:"ean13"`
 	Isbn                    string              `json:"isbn"`
 	Upc                     string              `json:"upc"`
 	Mpn                     string              `json:"mpn"`
-	CacheIsPack             int                 `json:"cache_is_pack"`
-	CacheHasAttachments     int                 `json:"cache_has_attachments"`
-	IsVirtual               int                 `json:"is_virtual"`
-	State                   int                 `json:"state"`
-	AdditionalDeliveryTimes int                 `json:"additional_delivery_times"`
+	CacheIsPack             string              `json:"cache_is_pack"`
+	CacheHasAttachments     string              `json:"cache_has_attachments"`
+	IsVirtual               string              `json:"is_virtual"`
+	State                   string              `json:"state"`
+	AdditionalDeliveryTimes string              `json:"additional_delivery_times"`
 	DeliveryInStock         []MetaData          `json:"delivery_in_stock,omitempty"`
 	DeliveryOutStock        []MetaData          `json:"delivery_out_stock,omitempty"`
 	ProductType             string              `json:"product_type"`
-	OnSale                  int                 `json:"on_sale"`
-	OnlineOnly              int                 `json:"online_only"`
+	OnSale                  string              `json:"on_sale"`
+	OnlineOnly              string              `json:"online_only"`
 	Ecotax                  string              `json:"ecotax"`
-	MinimalQuantity         int                 `json:"minimal_quantity"`
+	MinimalQuantity         string              `json:"minimal_quantity"`
 	LowStockThreshold       interface{}         `json:"low_stock_threshold"`
-	LowStockAlert           int                 `json:"low_stock_alert"`
+	LowStockAlert           string              `json:"low_stock_alert"`
 	Price                   string              `json:"price"`
 	WholesalePrice          string              `json:"wholesale_price"`
 	Unity                   string              `json:"unity"`
 	UnitPriceRatio          string              `json:"unit_price_ratio"`
 	AdditionalShippingCost  string              `json:"additional_shipping_cost"`
-	Customizable            int                 `json:"customizable"`
-	TextFields              int                 `json:"text_fields"`
-	UploadableFiles         int                 `json:"uploadable_files"`
-	Active                  int                 `json:"active"`
+	Customizable            string              `json:"customizable"`
+	TextFields              string              `json:"text_fields"`
+	UploadableFiles         string              `json:"uploadable_files"`
+	Active                  string              `json:"active"`
 	RedirectType            string              `json:"redirect_type"`
-	IdTypeRedirected        int                 `json:"id_type_redirected"`
-	AvailableForOrder       int                 `json:"available_for_order"`
+	IdTypeRedirected        string              `json:"id_type_redirected"`
+	AvailableForOrder       string              `json:"available_for_order"`
 	AvailableDate           string              `json:"available_date"`
-	ShowCondition           int                 `json:"show_condition"`
+	ShowCondition           string              `json:"show_condition"`
 	Condition               string              `json:"condition"`
-	ShowPrice               int                 `json:"show_price"`
-	Indexed                 int                 `json:"indexed"`
+	ShowPrice               string              `json:"show_price"`
+	Indexed                 string              `json:"indexed"`
 	Visibility              string              `json:"visibility"`
-	AdvancedStockManagement int                 `json:"advanced_stock_management"`
+	AdvancedStockManagement string              `json:"advanced_stock_management"`
 	DateAdd                 string              `json:"date_add"`
 	DateUpd                 string              `json:"date_upd"`
-	PackStockType           int                 `json:"pack_stock_type"`
+	PackStockType           string              `json:"pack_stock_type"`
 	MetaDescription         []MetaData          `json:"meta_description,omitempty"`
 	MetaKeywords            []MetaData          `json:"meta_keywords,omitempty"`
 	MetaTitle               []MetaData          `json:"meta_title,omitempty"`
