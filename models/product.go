@@ -1,17 +1,19 @@
 package models
 
+import "encoding/json"
+
 type Product struct {
 	Id                      int                 `json:"id"`
 	IdManufacturer          string              `json:"id_manufacturer"`
 	IdSupplier              string              `json:"id_supplier"`
-	IdCategoryDefault       string              `json:"id_category_default"`
+	IdCategoryDefault       json.Number         `json:"id_category_default"`
 	New                     interface{}         `json:"new"`
 	CacheDefaultAttribute   string              `json:"cache_default_attribute"`
 	IdDefaultImage          string              `json:"id_default_image"`
 	IdDefaultCombination    string              `json:"id_default_combination"`
 	IdTaxRulesGroup         string              `json:"id_tax_rules_group"`
 	PositionInCategory      string              `json:"position_in_category"`
-	ManufacturerName        string              `json:"manufacturer_name"`
+	ManufacturerName        interface{}         `json:"manufacturer_name"`
 	Quantity                string              `json:"quantity"`
 	Type                    string              `json:"type"`
 	IdShopDefault           string              `json:"id_shop_default"`
