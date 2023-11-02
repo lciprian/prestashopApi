@@ -4,13 +4,13 @@ import "encoding/json"
 
 type Product struct {
 	Id                      int                 `json:"id"`
-	IdManufacturer          string              `json:"id_manufacturer"`
-	IdSupplier              string              `json:"id_supplier"`
+	IdManufacturer          json.Number         `json:"id_manufacturer"`
+	IdSupplier              json.Number         `json:"id_supplier"`
 	IdCategoryDefault       json.Number         `json:"id_category_default"`
 	New                     interface{}         `json:"new"`
 	CacheDefaultAttribute   string              `json:"cache_default_attribute"`
 	IdDefaultImage          string              `json:"id_default_image"`
-	IdDefaultCombination    string              `json:"id_default_combination"`
+	IdDefaultCombination    json.Number         `json:"id_default_combination"`
 	IdTaxRulesGroup         string              `json:"id_tax_rules_group"`
 	PositionInCategory      string              `json:"position_in_category"`
 	ManufacturerName        interface{}         `json:"manufacturer_name"`
