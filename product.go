@@ -39,9 +39,10 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	queryParams.Add("display", "full")
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
 
+	//products := make([]models.Product, 0)
 	if err := s.client.Get(productBasePath, queryParams, &productList); err != nil {
 		return nil, err
 	}
-
+	//	fmt.Println("-ListProducts---------", products)
 	return &productList, nil
 }

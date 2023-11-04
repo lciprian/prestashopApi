@@ -64,23 +64,31 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 	}
 	defer resp.Body.Close()
 
-	if err := c.checkResponseError(resp); err != nil {
+	if err := c.checkResponseEmptyOrError(resp); err != nil {
 		return err
 	}
 
-	//if body, err := io.ReadAll(resp.Body); err == nil {
-	//	fmt.Printf("Body : %s", body)
-	//}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
 
-	decoder := json.NewDecoder(resp.Body)
-	if err := decoder.Decode(&resource); err != nil {
+	fmt.Printf("Body : %s", body)
+
+	if err := json.Unmarshal(body, resource); err != nil {
+		//check for empty list
+		var list []interface{}
+		if err2 := json.Unmarshal(body, &list); err2 == nil {
+			return nil
+		}
+
 		return err
 	}
 
 	return nil
 }
 
-func (c *Client) checkResponseError(r *http.Response) error {
+func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
 	if http.StatusOK <= r.StatusCode && r.StatusCode < http.StatusMultipleChoices {
 		return nil
 	}
