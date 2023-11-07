@@ -8,10 +8,10 @@ type Product struct {
 	IdSupplier              json.Number         `json:"id_supplier"`
 	IdCategoryDefault       json.Number         `json:"id_category_default"`
 	New                     interface{}         `json:"new"`
-	CacheDefaultAttribute   string              `json:"cache_default_attribute"`
-	IdDefaultImage          string              `json:"id_default_image"`
+	CacheDefaultAttribute   json.Number         `json:"cache_default_attribute"`
+	IdDefaultImage          json.Number         `json:"id_default_image"`
 	IdDefaultCombination    json.Number         `json:"id_default_combination"`
-	IdTaxRulesGroup         string              `json:"id_tax_rules_group"`
+	IdTaxRulesGroup         json.Number         `json:"id_tax_rules_group"`
 	PositionInCategory      string              `json:"position_in_category"`
 	ManufacturerName        interface{}         `json:"manufacturer_name"`
 	Quantity                string              `json:"quantity"`
