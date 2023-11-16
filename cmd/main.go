@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"github.com/lciprian/prestashopApi/models"
 
 	"github.com/lciprian/prestashopApi"
 )
 
 func main() {
 	appName := "Presta"
-	urlStr := "http://presto.local"
+	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -16,9 +17,22 @@ func main() {
 
 	//getResources(ps)
 
-	getProducts(ps)
+	//getProducts(ps)
+	createProducts(ps)
 
 	fmt.Println("----done-----")
+}
+
+func createProducts(ps *prestashopApi.PrestaShop) {
+	product := models.Product{}
+
+	err := ps.Product.CreateProduct(product)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----")
 }
 
 func getResources(ps *prestashopApi.PrestaShop) {

@@ -88,6 +88,42 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 	return nil
 }
 
+func (c *Client) Post(path string, params url.Values, resource interface{}) error {
+	req, err := c.NewRequest("POST", path, params, resource)
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if err := c.checkResponseEmptyOrError(resp); err != nil {
+		return err
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Body : %s", body)
+
+	if err := json.Unmarshal(body, resource); err != nil {
+		//check for empty list
+		var list []interface{}
+		if err2 := json.Unmarshal(body, &list); err2 == nil {
+			return nil
+		}
+
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
 	if http.StatusOK <= r.StatusCode && r.StatusCode < http.StatusMultipleChoices {
 		return nil

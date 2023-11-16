@@ -12,11 +12,11 @@ type Product struct {
 	IdDefaultImage          json.Number         `json:"id_default_image"`
 	IdDefaultCombination    json.Number         `json:"id_default_combination"`
 	IdTaxRulesGroup         json.Number         `json:"id_tax_rules_group"`
-	PositionInCategory      string              `json:"position_in_category"`
+	PositionInCategory      json.Number         `json:"position_in_category"`
 	ManufacturerName        interface{}         `json:"manufacturer_name"`
 	Quantity                string              `json:"quantity"`
 	Type                    string              `json:"type"`
-	IdShopDefault           string              `json:"id_shop_default"`
+	IdShopDefault           json.Number         `json:"id_shop_default"`
 	Reference               string              `json:"reference"`
 	SupplierReference       string              `json:"supplier_reference"`
 	Location                string              `json:"location"`

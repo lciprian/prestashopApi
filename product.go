@@ -46,3 +46,13 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	//	fmt.Println("-ListProducts---------", products)
 	return &productList, nil
 }
+
+func (s *ProductService) CreateProduct(product models.Product) error {
+	queryParams := url.Values{}
+
+	if err := s.client.Post(productBasePath, queryParams, &product); err != nil {
+		return err
+	}
+
+	return nil
+}
