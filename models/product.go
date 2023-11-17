@@ -1,6 +1,88 @@
 package models
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
+
+type Product2 struct {
+	Id int `json:"id" xml:"id,omitempty"`
+	//IdManufacturer        json.Number `json:"id_manufacturer" xml:"id_manufacturer,omitempty"`
+	//IdSupplier            json.Number `json:"id_supplier" xml:"id_supplier,omitempty"`
+	//IdCategoryDefault     json.Number `json:"id_category_default" xml:"id_category_default,omitempty"`
+	New interface{} `json:"new" xml:"new,omitempty"`
+	//CacheDefaultAttribute json.Number `json:"cache_default_attribute" xml:"cache_default_attribute,omitempty"`
+	//IdDefaultImage        json.Number `json:"id_default_image" xml:"id_default_image,omitempty"`
+	//IdDefaultCombination  json.Number `json:"id_default_combination" xml:"id_default_combination,omitempty"`
+	//IdTaxRulesGroup       json.Number `json:"id_tax_rules_group" xml:"id_tax_rules_group,omitempty"`
+	//PositionInCategory    json.Number `json:"position_in_category" xml:"position_in_category,omitempty"`
+	//ManufacturerName      interface{} `json:"manufacturer_name" xml:"manufacturer_name,omitempty"`
+	//Quantity              string      `json:"quantity" xml:"quantity,omitempty"`
+	//Type                  string      `json:"type" xml:"type,omitempty"`
+	//IdShopDefault         json.Number `json:"id_shop_default" xml:"id_shop_default,omitempty"`
+	//Reference             string      `json:"reference" xml:"reference,omitempty"`
+	//SupplierReference     string      `json:"supplier_reference" xml:"supplier_reference,omitempty"`
+	//Location              string      `json:"location" xml:"location,omitempty"`
+
+	Ean13 string `json:"ean13" xml:"ean13,omitempty"`
+	Isbn  string `json:"isbn" xml:"isbn,omitempty"`
+	Upc   string `json:"upc" xml:"upc,omitempty"`
+	Mpn   string `json:"mpn" xml:"mpn,omitempty"`
+
+	Name []*MetaData `json:"name,omitempty" xml:"name,omitempty"`
+	//Description      []*MetaData         `json:"description,omitempty" xml:"description,omitempty"`
+	//DescriptionShort []*MetaData         `json:"description_short,omitempty" xml:"description_short,omitempty"`
+	//AvailableNow     []*MetaData         `json:"available_now,omitempty" xml:"available_now,omitempty"`
+	//AvailableLater   []*MetaData         `json:"available_later,omitempty" xml:"available_later,omitempty"`
+	//Associations     ProductAssociations `json:"associations" xml:"associations,omitempty"`
+	//MetaDescription  []*MetaData         `json:"meta_description,omitempty" xml:"meta_description,omitempty"`
+	//MetaKeywords     []*MetaData         `json:"meta_keywords,omitempty" xml:"meta_keywords,omitempty"`
+	//MetaTitle        []*MetaData         `json:"meta_title,omitempty" xml:"meta_title,omitempty"`
+
+	//Width            string `json:"width" xml:"width,omitempty"`
+	//Height           string `json:"height" xml:"height,omitempty"`
+	//Depth            string `json:"depth" xml:"depth,omitempty"`
+	//Weight           string `json:"weight" xml:"weight,omitempty"`
+	//QuantityDiscount string `json:"quantity_discount" xml:"quantity_discount,omitempty"`
+
+	//State                   string      `json:"state" xml:"state,omitempty"`
+	//AdditionalDeliveryTimes string      `json:"additional_delivery_times" xml:"additional_delivery_times,omitempty"`
+	//DeliveryInStock         []MetaData  `json:"delivery_in_stock,omitempty" xml:"delivery_in_stock,omitempty"`
+	//DeliveryOutStock        []MetaData  `json:"delivery_out_stock,omitempty" xml:"delivery_out_stock,omitempty"`
+	//ProductType             string      `json:"product_type" xml:"product_type,omitempty"`
+	//OnSale                  string      `json:"on_sale" xml:"on_sale,omitempty"`
+	//OnlineOnly              string      `json:"online_only" xml:"online_only,omitempty"`
+	//Ecotax                  string      `json:"ecotax" xml:"ecotax,omitempty"`
+	//MinimalQuantity         string      `json:"minimal_quantity" xml:"minimal_quantity,omitempty"`
+	//LowStockThreshold       interface{} `json:"low_stock_threshold" xml:"low_stock_threshold,omitempty"`
+	//LowStockAlert           string      `json:"low_stock_alert" xml:"low_stock_alert,omitempty"`
+
+	Price string `json:"price" xml:"price"`
+	//WholesalePrice          string     `json:"wholesale_price" xml:"wholesale_price,omitempty"`
+	//Unity                   string     `json:"unity" xml:"unity,omitempty"`
+	//UnitPriceRatio          string     `json:"unit_price_ratio" xml:"unit_price_ratio,omitempty"`
+	//AdditionalShippingCost  string     `json:"additional_shipping_cost" xml:"additional_shipping_cost,omitempty"`
+	//Customizable            string     `json:"customizable" xml:"customizable,omitempty"`
+	//TextFields              string     `json:"text_fields" xml:"text_fields,omitempty"`
+	//UploadableFiles         string     `json:"uploadable_files" xml:"uploadable_files,omitempty"`
+	//Active                  string     `json:"active" xml:"active,omitempty"`
+	//RedirectType            string     `json:"redirect_type" xml:"redirect_type,omitempty"`
+	//IdTypeRedirected        string     `json:"id_type_redirected" xml:"id_type_redirected,omitempty"`
+	//AvailableForOrder       string     `json:"available_for_order" xml:"available_for_order,omitempty"`
+	//AvailableDate           string     `json:"available_date" xml:"available_date,omitempty"`
+	//ShowCondition           string     `json:"show_condition" xml:"show_condition,omitempty"`
+	//Condition               string     `json:"condition" xml:"condition,omitempty"`
+	//ShowPrice               string     `json:"show_price" xml:"show_price,omitempty"`
+	//Indexed                 string     `json:"indexed" xml:"indexed,omitempty"`
+	//Visibility              string     `json:"visibility" xml:"visibility,omitempty"`
+	//AdvancedStockManagement string     `json:"advanced_stock_management" xml:"advanced_stock_management,omitempty"`
+	//DateAdd                 string     `json:"date_add" xml:"date_add,omitempty"`
+	//DateUpd                 string     `json:"date_upd" xml:"date_upd,omitempty"`
+	//PackStockType           string     `json:"pack_stock_type" xml:"pack_stock_type,omitempty"`
+	//LinkRewrite             []MetaData `json:"link_rewrite" xml:"link_rewrite,omitempty"`
+	//CacheIsPack             string     `json:"cache_is_pack" xml:"cache_is_pack,omitempty"`
+	//CacheHasAttachments     string     `json:"cache_has_attachments" xml:"cache_has_attachments,omitempty"`
+	//IsVirtual               string     `json:"is_virtual" xml:"is_virtual,omitempty"`
+}
 
 type Product struct {
 	Id                      int                 `json:"id"`
@@ -43,7 +125,7 @@ type Product struct {
 	MinimalQuantity         string              `json:"minimal_quantity"`
 	LowStockThreshold       interface{}         `json:"low_stock_threshold"`
 	LowStockAlert           string              `json:"low_stock_alert"`
-	Price                   string              `json:"price"`
+	Price                   string              `json:"price" xml:"price"`
 	WholesalePrice          string              `json:"wholesale_price"`
 	Unity                   string              `json:"unity"`
 	UnitPriceRatio          string              `json:"unit_price_ratio"`

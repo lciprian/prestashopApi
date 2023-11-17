@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/xml"
 	"fmt"
 	"github.com/lciprian/prestashopApi/models"
 
@@ -24,13 +25,34 @@ func main() {
 }
 
 func createProducts(ps *prestashopApi.PrestaShop) {
-	product := models.Product{}
+	product := models.Product2{
+		New:   1,
+		Price: "123",
+		Name: []*models.MetaData{
+			{
+				models.Language{
+					ID:   "1",
+					Text: "My awesome Product",
+				},
+			},
+		},
+	}
 
-	err := ps.Product.CreateProduct(product)
+	psss := models.Prestashop{
+		Product: product,
+	}
+	fmt.Printf("----data---%#v--\n", psss)
+	data, err := xml.Marshal(psss)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
+	fmt.Println("----data-----", string(data))
+	//err := ps.Product.CreateProduct(product)
+	//if err != nil {
+	//	fmt.Println("----done-----", err)
+	//	return
+	//}
 
 	fmt.Println("----resources-----")
 }
