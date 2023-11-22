@@ -23,6 +23,7 @@ type PrestaShop struct {
 	BaseURL  *url.URL
 	Resource ResourceService
 	Product  ProductService
+	Image    ImageService
 }
 
 func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
@@ -41,6 +42,10 @@ func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
 	ps.Product = newProductService(client)
 
 	ps.Product = ProductService{
+		client: client,
+	}
+
+	ps.Image = ImageService{
 		client: client,
 	}
 

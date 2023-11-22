@@ -52,8 +52,72 @@ func (c *Client) NewRequest(method, relPath string, params url.Values, body inte
 	return req, nil
 }
 
+func (c *Client) NewFormDataRequest(method, relPath string, params url.Values, body *bytes.Buffer) (*http.Request, error) {
+	rel, err := url.Parse(fmt.Sprintf("api/%s", relPath))
+	if err != nil {
+		return nil, err
+	}
+
+	// Make the full url based on the relative path
+	u := c.baseURL.ResolveReference(rel)
+
+	if params != nil {
+		u.RawQuery = params.Encode()
+	}
+
+	req, err := http.NewRequest(method, u.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("User-Agent", UserAgent)
+	req.Header.Add("Output-Format", "JSON")
+	req.Header.Add("Io-Format", "JSON")
+	req.Header.Add("Authorization", fmt.Sprintf("Basic %s", c.apiKey))
+
+	return req, nil
+}
+
 func (c *Client) Get(path string, params url.Values, resource interface{}) error {
 	req, err := c.NewRequest("GET", path, params, nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if err := c.checkResponseEmptyOrError(resp); err != nil {
+		return err
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Body : %s", body)
+
+	if err := json.Unmarshal(body, resource); err != nil {
+		//check for empty list
+		var list []interface{}
+		if err2 := json.Unmarshal(body, &list); err2 == nil {
+			return nil
+		}
+
+		return err
+	}
+
+	return nil
+}
+
+func (c *Client) FormDataPost(path string, params url.Values, resource *bytes.Buffer) error {
+	req, err := c.NewFormDataRequest("POST", path, params, resource)
 	if err != nil {
 		return err
 	}

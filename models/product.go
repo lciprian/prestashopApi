@@ -10,7 +10,7 @@ type Product2 struct {
 	//IdSupplier            json.Number `json:"id_supplier" xml:"id_supplier,omitempty"`
 	//IdCategoryDefault     json.Number `json:"id_category_default" xml:"id_category_default,omitempty"`
 	New interface{} `json:"new" xml:"new,omitempty"`
-	//CacheDefaultAttribute json.Number `json:"cache_default_attribute" xml:"cache_default_attribute,omitempty"`
+
 	//IdDefaultImage        json.Number `json:"id_default_image" xml:"id_default_image,omitempty"`
 	//IdDefaultCombination  json.Number `json:"id_default_combination" xml:"id_default_combination,omitempty"`
 	//IdTaxRulesGroup       json.Number `json:"id_tax_rules_group" xml:"id_tax_rules_group,omitempty"`
@@ -82,6 +82,7 @@ type Product2 struct {
 	//CacheIsPack             string     `json:"cache_is_pack" xml:"cache_is_pack,omitempty"`
 	//CacheHasAttachments     string     `json:"cache_has_attachments" xml:"cache_has_attachments,omitempty"`
 	//IsVirtual               string     `json:"is_virtual" xml:"is_virtual,omitempty"`
+	//CacheDefaultAttribute json.Number `json:"cache_default_attribute" xml:"cache_default_attribute,omitempty"`
 }
 
 type Product struct {
