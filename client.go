@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 )
@@ -52,7 +53,7 @@ func (c *Client) NewRequest(method, relPath string, params url.Values, body inte
 	return req, nil
 }
 
-func (c *Client) NewFormDataRequest(method, relPath string, params url.Values, body *bytes.Buffer) (*http.Request, error) {
+func (c *Client) NewFormDataRequest(method, relPath string, params url.Values, body io.Reader) (*http.Request, error) {
 	rel, err := url.Parse(fmt.Sprintf("api/%s", relPath))
 	if err != nil {
 		return nil, err
@@ -116,11 +117,32 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 	return nil
 }
 
-func (c *Client) FormDataPost(path string, params url.Values, resource *bytes.Buffer) error {
-	req, err := c.NewFormDataRequest("POST", path, params, resource)
+func (c *Client) FormDataPost(path string, params url.Values, resource io.Reader) error {
+	// Create a buffer to store the request body
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
+
+	// Create a form field for the image file
+	part, err := writer.CreateFormFile("image", params.Get("image"))
+	if err != nil {
+		return fmt.Errorf("error creating form file: %s", err)
+	}
+
+	// Copy the file content to the form field
+	_, err = io.Copy(part, resource)
+	if err != nil {
+		return fmt.Errorf("error copying file to form: %s", err.Error())
+	}
+	fmt.Println("FormDataContentType----------", writer.FormDataContentType())
+
+	// Close the multipart writer to finalize the request body
+	writer.Close()
+
+	req, err := c.NewFormDataRequest("POST", path, params, &requestBody)
 	if err != nil {
 		return err
 	}
+	req.Header.Set("Content-Type", writer.FormDataContentType())
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -137,17 +159,7 @@ func (c *Client) FormDataPost(path string, params url.Values, resource *bytes.Bu
 		return err
 	}
 
-	fmt.Printf("Body : %s", body)
-
-	if err := json.Unmarshal(body, resource); err != nil {
-		//check for empty list
-		var list []interface{}
-		if err2 := json.Unmarshal(body, &list); err2 == nil {
-			return nil
-		}
-
-		return err
-	}
+	fmt.Printf("Body : %d", len(body))
 
 	return nil
 }
