@@ -1,28 +1,28 @@
 package models
 
-type Combinations struct {
-	Id                int         `json:"id"`
-	IdProduct         int         `json:"id_product"`
-	Location          string      `json:"location"`
-	Ean13             string      `json:"ean13"`
-	Isbn              string      `json:"isbn"`
-	Upc               string      `json:"upc"`
-	Mpn               string      `json:"mpn"`
-	Quantity          int         `json:"quantity"`
-	Reference         string      `json:"reference"`
-	SupplierReference string      `json:"supplier_reference"`
-	WholesalePrice    string      `json:"wholesale_price"`
-	Price             string      `json:"price"`
-	Ecotax            string      `json:"ecotax"`
-	Weight            string      `json:"weight"`
-	UnitPriceImpact   string      `json:"unit_price_impact"`
-	MinimalQuantity   int         `json:"minimal_quantity"`
-	LowStockThreshold interface{} `json:"low_stock_threshold"`
-	LowStockAlert     int         `json:"low_stock_alert"`
-	DefaultOn         interface{} `json:"default_on"`
-	AvailableDate     string      `json:"available_date"`
+type Combination struct {
+	Id                int         `json:"id" xml:"id,omitempty"`
+	IdProduct         int         `json:"id_product" xml:"id_product,omitempty"`
+	Location          string      `json:"location" xml:"location,omitempty"`
+	Ean13             string      `json:"ean13" xml:"ean13,omitempty"`
+	Isbn              string      `json:"isbn" xml:"isbn,omitempty"`
+	Upc               string      `json:"upc" xml:"upc,omitempty"`
+	Mpn               string      `json:"mpn" xml:"mpn,omitempty"`
+	Quantity          int         `json:"quantity" xml:"quantity,omitempty"`
+	Reference         string      `json:"reference" xml:"reference,omitempty"`
+	SupplierReference string      `json:"supplier_reference" xml:"supplier_reference,omitempty"`
+	WholesalePrice    string      `json:"wholesale_price" xml:"wholesale_price,omitempty"`
+	Price             string      `json:"price" xml:"price,omitempty"`
+	Ecotax            string      `json:"ecotax" xml:"ecotax,omitempty"`
+	Weight            string      `json:"weight" xml:"weight,omitempty"`
+	UnitPriceImpact   string      `json:"unit_price_impact" xml:"unit_price_impact,omitempty"`
+	MinimalQuantity   int         `json:"minimal_quantity" xml:"minimal_quantity,omitempty"`
+	LowStockThreshold interface{} `json:"low_stock_threshold" xml:"low_stock_threshold,omitempty"`
+	LowStockAlert     int         `json:"low_stock_alert" xml:"low_stock_alert,omitempty"`
+	DefaultOn         interface{} `json:"default_on" xml:"default_on,omitempty"`
+	AvailableDate     string      `json:"available_date" xml:"available_date,omitempty"`
 	Associations      struct {
-		ProductOptionValues [][]interface{} `json:"product_option_values"`
-		Images              [][]interface{} `json:"images"`
+		ProductOptionValues [][]interface{} `json:"product_option_values" xml:"product_option_values,omitempty"`
+		Images              [][]interface{} `json:"images" xml:"images,omitempty"`
 	}
 }

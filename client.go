@@ -3,12 +3,26 @@ package prestashopApi
 import (
 	"bytes"
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"net/url"
+
+	"github.com/lciprian/prestashopApi/models"
 )
+
+type Prestashop struct {
+	XMLName      xml.Name              `xml:"prestashop"`
+	Product      models.ProductRequest `xml:"product,omitempty"`
+	Combinations models.Combination    `xml:"combination,omitempty"`
+}
+
+type Prestashop2 struct {
+	XMLName xml.Name       `xml:"prestashop"`
+	Product models.Product `xml:"product,omitempty"`
+}
 
 type Client struct {
 	client  *http.Client
@@ -17,7 +31,7 @@ type Client struct {
 	apiKey  string
 }
 
-func (c *Client) NewRequest(method, relPath string, params url.Values, body interface{}) (*http.Request, error) {
+func (c *Client) NewRequest(method, relPath string, params url.Values, body io.Reader) (*http.Request, error) {
 	rel, err := url.Parse(fmt.Sprintf("api/%s", relPath))
 	if err != nil {
 		return nil, err
@@ -30,20 +44,16 @@ func (c *Client) NewRequest(method, relPath string, params url.Values, body inte
 		u.RawQuery = params.Encode()
 	}
 
-	var js []byte = nil
-	if body != nil {
-		js, err = json.Marshal(body)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(js))
+	req, err := http.NewRequest(method, u.String(), body)
 	if err != nil {
 		return nil, err
 	}
 
-	req.Header.Add("Content-Type", "application/json")
+	cType := "application/json"
+	if method == "POST" {
+		cType = "application/xml"
+	}
+	req.Header.Add("Content-Type", cType)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("User-Agent", UserAgent)
 	req.Header.Add("Output-Format", "JSON")
@@ -164,40 +174,30 @@ func (c *Client) FormDataPost(path string, params url.Values, resource io.Reader
 	return nil
 }
 
-func (c *Client) Post(path string, params url.Values, resource interface{}) error {
+func (c *Client) Post(path string, params url.Values, resource io.Reader) ([]byte, error) {
 	req, err := c.NewRequest("POST", path, params, resource)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	resp, err := c.client.Do(req)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	if err := c.checkResponseEmptyOrError(resp); err != nil {
-		return err
+		return nil, err
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	fmt.Printf("Body : %s", body)
 
-	if err := json.Unmarshal(body, resource); err != nil {
-		//check for empty list
-		var list []interface{}
-		if err2 := json.Unmarshal(body, &list); err2 == nil {
-			return nil
-		}
-
-		return err
-	}
-
-	return nil
+	return body, nil
 }
 
 func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
@@ -205,9 +205,20 @@ func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
 		return nil
 	}
 
-	if _, err := io.ReadAll(r.Body); err != nil {
+	data, err := io.ReadAll(r.Body)
+	if err != nil {
 		return fmt.Errorf("response message error: %s", err.Error())
 	}
 
-	return fmt.Errorf("response error status: %d", r.StatusCode)
+	respError := fmt.Errorf("response error status: %d", r.StatusCode)
+	errors := models.ResponseErrors{}
+	if err := json.Unmarshal(data, &errors); err != nil {
+		return respError
+	}
+
+	if len(errors.Errors) > 0 {
+		respError = fmt.Errorf("response error code: %d, message: %s", errors.Errors[0].Code, errors.Errors[0].Message)
+	}
+
+	return respError
 }

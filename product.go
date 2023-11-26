@@ -1,6 +1,9 @@
 package prestashopApi
 
 import (
+	"bytes"
+	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"net/url"
 
@@ -47,12 +50,24 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProduct(product models.Product) error {
+func (s *ProductService) CreateProduct(product models.ProductRequest) error {
 	queryParams := url.Values{}
 
-	if err := s.client.Post(productBasePath, queryParams, &product); err != nil {
+	buf, err := xml.Marshal(Prestashop{Product: product})
+	if err != nil {
 		return err
 	}
 
+	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
+	if err != nil {
+		return err
+	}
+
+	psResponse := Prestashop2{}
+	if err := json.Unmarshal(data, &psResponse); err != nil {
+		return err
+	}
+
+	fmt.Println("---------", psResponse.Product)
 	return nil
 }
