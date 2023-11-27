@@ -53,7 +53,29 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 func (s *ProductService) CreateProduct(product models.ProductRequest) error {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(Prestashop{Product: product})
+	buf, err := xml.Marshal(Prestashop{Product: &product})
+	if err != nil {
+		return err
+	}
+
+	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
+	if err != nil {
+		return err
+	}
+
+	psResponse := Prestashop2{}
+	if err := json.Unmarshal(data, &psResponse); err != nil {
+		return err
+	}
+
+	fmt.Println("---------", psResponse.Product)
+	return nil
+}
+
+func (s *ProductService) CreateProductCombination(productVariant models.ProductVariantReq) error {
+	queryParams := url.Values{}
+
+	buf, err := xml.Marshal(Prestashop{Combinations: &productVariant})
 	if err != nil {
 		return err
 	}

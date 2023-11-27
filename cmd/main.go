@@ -8,7 +8,7 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "http://presto.local"
+	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -17,7 +17,8 @@ func main() {
 	//getResources(ps)
 
 	//getProducts(ps)
-	createProducts(ps)
+	//createProducts(ps)
+	createProductCombinations(ps, "45")
 	//createProductImage(ps)
 
 	fmt.Println("----done-----")
@@ -73,12 +74,27 @@ func createProducts(ps *prestashopApi.PrestaShop) {
 		Depth:  "50",
 	}
 
-	psss := models.Prestashop{
-		Product: product,
-	}
-	fmt.Printf("----data---%#v--\n", psss)
+	fmt.Printf("----data---%#v--\n", product)
 
 	if err := ps.Product.CreateProduct(product); err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----")
+}
+
+func createProductCombinations(ps *prestashopApi.PrestaShop, pId string) {
+	productVariant := models.ProductVariantReq{
+		IdProduct: pId,
+		//Ean13:     "testsku1",
+		Price:  "123",
+		Weight: "100",
+	}
+
+	fmt.Printf("----data---%#v--\n", productVariant)
+
+	if err := ps.Product.CreateProductCombination(productVariant); err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
