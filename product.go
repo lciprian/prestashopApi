@@ -11,6 +11,7 @@ import (
 )
 
 var productBasePath = "products"
+var productVariantBasePath = "combinations"
 
 type ProductService struct {
 	client *Client
@@ -20,6 +21,12 @@ type ProductList struct {
 	Limit int
 	Page  int
 	Data  []models.Product `json:"products,omitempty"`
+}
+
+type ProductCombinationList struct {
+	Limit int
+	Page  int
+	Data  []models.Combination `json:"combinations,omitempty"`
 }
 
 func newProductService(client *Client) ProductService {
@@ -50,46 +57,69 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProduct(product models.ProductRequest) error {
+func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.Product, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(Prestashop{Product: &product})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	psResponse := Prestashop2{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
-		return err
+		return nil, err
 	}
 
-	fmt.Println("---------", psResponse.Product)
-	return nil
+	return &psResponse.Product, nil
 }
 
-func (s *ProductService) CreateProductCombination(productVariant models.ProductVariantReq) error {
+func (s *ProductService) ListProductCombination(productId string, limit, page int) (*ProductCombinationList, error) {
+	if page > 0 {
+		page -= 1
+	}
+	offset := limit * page
+	queryParams := url.Values{}
+	queryParams.Add("display", "full")
+	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
+	if productId != "" {
+		queryParams.Add("filter[id_product]", productId)
+	}
+
+	productCombinationList := ProductCombinationList{
+		Limit: limit,
+		Page:  page,
+	}
+
+	if err := s.client.Get(productVariantBasePath, queryParams, &productCombinationList); err != nil {
+		return nil, err
+	}
+	fmt.Println("--", productCombinationList.Data)
+	panic("----------")
+	return &productCombinationList, nil
+}
+
+func (s *ProductService) CreateProductCombination(productVariant models.ProductVariantReq) (*models.Combination, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(Prestashop{Combinations: &productVariant})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
+	data, err := s.client.Post(productVariantBasePath, queryParams, bytes.NewBuffer(buf))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	psResponse := Prestashop2{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
-		return err
+		return nil, err
 	}
 
-	fmt.Println("---------", psResponse.Product)
-	return nil
+	return &psResponse.Combination, nil
 }

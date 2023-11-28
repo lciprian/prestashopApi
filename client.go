@@ -113,7 +113,7 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 		return err
 	}
 
-	fmt.Printf("Body : %s", body)
+	//	fmt.Printf("Body : %s", body)
 
 	if err := json.Unmarshal(body, resource); err != nil {
 		//check for empty list
@@ -223,3 +223,36 @@ func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
 
 	return respError
 }
+
+//type T struct {
+//	Combinations []struct {
+//		Id                string      `json:"id"`
+//		IdProduct         string      `json:"id_product"`
+//		Location          interface{} `json:"location"`
+//		Ean13             interface{} `json:"ean13"`
+//		Isbn              interface{} `json:"isbn"`
+//		Upc               interface{} `json:"upc"`
+//		Mpn               interface{} `json:"mpn"`
+//		Quantity          interface{} `json:"quantity"`
+//		Reference         interface{} `json:"reference"`
+//		SupplierReference interface{} `json:"supplier_reference"`
+//		WholesalePrice    interface{} `json:"wholesale_price"`
+//		Price             string      `json:"price"`
+//		Ecotax            interface{} `json:"ecotax"`
+//		Weight            string      `json:"weight"`
+//		UnitPriceImpact   interface{} `json:"unit_price_impact"`
+//		MinimalQuantity   string      `json:"minimal_quantity"`
+//		LowStockThreshold interface{} `json:"low_stock_threshold"`
+//		LowStockAlert     interface{} `json:"low_stock_alert"`
+//		DefaultOn         interface{} `json:"default_on"`
+//		AvailableDate     interface{} `json:"available_date"`
+//		Associations      struct {
+//			ProductOptionValues []struct {
+//				Id string `json:"id"`
+//			} `json:"product_option_values"`
+//			Images []struct {
+//				Id string `json:"id"`
+//			} `json:"images"`
+//		} `json:"associations"`
+//	} `json:"combinations"`
+//}
