@@ -12,6 +12,12 @@ import (
 
 var productVariantBasePath = "combinations"
 
+type ProductVariationList struct {
+	Limit int
+	Page  int
+	Data  []models.Combination `json:"combinations,omitempty"`
+}
+
 type ProductVariantService struct {
 	client *Client
 }
@@ -22,7 +28,7 @@ func newProductVariantService(client *Client) ProductVariantService {
 	}
 }
 
-func (s *ProductVariantService) ListProductVariant(productId string, limit, page int) (*ProductCombinationList, error) {
+func (s *ProductVariantService) ListProductVariant(productId string, limit, page int) (*ProductVariationList, error) {
 	if page > 0 {
 		page -= 1
 	}
@@ -34,7 +40,7 @@ func (s *ProductVariantService) ListProductVariant(productId string, limit, page
 		queryParams.Add("filter[id_product]", productId)
 	}
 
-	productCombinationList := ProductCombinationList{
+	productCombinationList := ProductVariationList{
 		Limit: limit,
 		Page:  page,
 	}
@@ -49,7 +55,7 @@ func (s *ProductVariantService) ListProductVariant(productId string, limit, page
 func (s *ProductVariantService) CreateProductVariant(productVariant models.ProductVariantReq) (*models.Combination, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(Prestashop{Combinations: &productVariant})
+	buf, err := xml.Marshal(PrestashopReq{Combinations: &productVariant})
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +65,7 @@ func (s *ProductVariantService) CreateProductVariant(productVariant models.Produ
 		return nil, err
 	}
 
-	psResponse := Prestashop2{}
+	psResponse := Prestashop{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
 		return nil, err
 	}
@@ -70,7 +76,7 @@ func (s *ProductVariantService) CreateProductVariant(productVariant models.Produ
 func (s *ProductVariantService) UpdateProductVariant(productVariant models.ProductVariantReq) (*models.Combination, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(Prestashop{Combinations: &productVariant})
+	buf, err := xml.Marshal(PrestashopReq{Combinations: &productVariant})
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +86,7 @@ func (s *ProductVariantService) UpdateProductVariant(productVariant models.Produ
 		return nil, err
 	}
 
-	psResponse := Prestashop2{}
+	psResponse := Prestashop{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
 		return nil, err
 	}

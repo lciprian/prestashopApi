@@ -20,12 +20,23 @@ func main() {
 	//getProducts(ps)
 	//createProducts(ps)
 	//updateProducts(ps, "45")
-	//createProductCombinations(ps, "44")
-	//updateProductCombinations(ps, "45", "44")
-	getProductVariants(ps, "44")
+	//getProductVariants(ps, "44")
+	//createProductVariant(ps, "44")
+	//updateProductVariant(ps, "45", "44")
 	//createProductImage(ps)
+	getProductOptions(ps, "2")
 
 	fmt.Println("----done-----")
+}
+
+func getProducts(ps *prestashopApi.PrestaShop) {
+	products, err := ps.Product.ListProducts(100, 1)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", products)
 }
 
 func createProducts(ps *prestashopApi.PrestaShop) {
@@ -43,13 +54,14 @@ func createProducts(ps *prestashopApi.PrestaShop) {
 	fmt.Println("----product-----\n", product)
 }
 
-func updateProducts(ps *prestashopApi.PrestaShop) {
+func updateProducts(ps *prestashopApi.PrestaShop, pId string) {
 	productReq := getNewProduct()
-
+	productReq.Id = pId
+	productReq.Reference = "REF112"
 	//ProductType combinations
 	fmt.Printf("----data---%#v--\n", productReq)
 
-	product, err := ps.Product.CreateProduct(productReq)
+	product, err := ps.Product.UpdateProduct(productReq)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
@@ -81,8 +93,8 @@ func createProductVariants(ps *prestashopApi.PrestaShop, pId string) {
 	fmt.Println("----resources-----", productVariant)
 }
 
-func updateProductVariant(ps *prestashopApi.PrestaShop, pId string) {
-	productVariantReq := getNewProductVariant(pId)
+func updateProductVariant(ps *prestashopApi.PrestaShop, pId, vId string) {
+	productVariantReq := getNewUpdateProductVariant(vId, pId)
 	fmt.Printf("----data---%#v--\n", productVariantReq)
 
 	productVariant, err := ps.ProductVariant.CreateProductVariant(productVariantReq)
@@ -116,18 +128,18 @@ func getResources(ps *prestashopApi.PrestaShop) {
 	fmt.Println("----resources-----", resources)
 }
 
-func getProducts(ps *prestashopApi.PrestaShop) {
-	products, err := ps.Product.ListProducts(100, 1)
+func getProductOptions(ps *prestashopApi.PrestaShop, pId string) {
+	variants, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
 
-	fmt.Printf("----resources-----%#v", products)
+	fmt.Printf("----resources-----%#v", variants)
 }
 
-func getNewProduct() models.ProductRequest {
-	return models.ProductRequest{
+func getNewProduct() models.ProductReq {
+	return models.ProductReq{
 		New:               1,
 		IdCategoryDefault: "8",
 		IdShopDefault:     "2",
@@ -188,6 +200,22 @@ func getNewProductVariant(productId string) models.ProductVariantReq {
 			ID string `xml:"id"`
 		}{
 			ID: "5",
+		},
+	}
+}
+
+func getNewUpdateProductVariant(variantId, productId string) models.ProductVariantReq {
+	return models.ProductVariantReq{
+		Id:              variantId,
+		IdProduct:       productId,
+		MinimalQuantity: 1,
+		Reference:       "testsku1",
+		Price:           "123",
+		Weight:          "100",
+		ProductOptionValue: struct {
+			ID string `xml:"id"`
+		}{
+			ID: "6",
 		},
 	}
 }

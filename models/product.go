@@ -2,7 +2,7 @@ package models
 
 import "encoding/json"
 
-type ProductRequest struct {
+type ProductReq struct {
 	Id string `json:"id" xml:"id,omitempty"`
 	//IdManufacturer        json.Number `json:"id_manufacturer" xml:"id_manufacturer,omitempty"`
 	//IdSupplier            json.Number `json:"id_supplier" xml:"id_supplier,omitempty"`
@@ -148,7 +148,7 @@ type Product struct {
 	MetaDescription         string              `json:"meta_description,omitempty"`
 	MetaKeywords            string              `json:"meta_keywords,omitempty"`
 	MetaTitle               string              `json:"meta_title,omitempty"`
-	LinkRewrite             []*MetaData         `json:"link_rewrite"`
+	LinkRewrite             string              `json:"link_rewrite"`
 	Name                    []*MetaData         `json:"name,omitempty"`
 	Description             []*MetaData         `json:"description,omitempty"`
 	DescriptionShort        []*MetaData         `json:"description_short,omitempty"`

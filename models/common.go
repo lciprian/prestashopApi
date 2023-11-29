@@ -3,8 +3,8 @@ package models
 import "encoding/xml"
 
 type Prestashop struct {
-	XMLName xml.Name       `xml:"prestashop"`
-	Product ProductRequest `xml:"product,omitempty"`
+	XMLName xml.Name   `xml:"prestashop"`
+	Product ProductReq `xml:"product,omitempty"`
 }
 
 //type Prestashop struct {

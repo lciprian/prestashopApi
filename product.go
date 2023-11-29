@@ -22,12 +22,6 @@ type ProductList struct {
 	Data  []models.Product `json:"products,omitempty"`
 }
 
-type ProductCombinationList struct {
-	Limit int
-	Page  int
-	Data  []models.Combination `json:"combinations,omitempty"`
-}
-
 func newProductService(client *Client) ProductService {
 	return ProductService{
 		client: client,
@@ -56,10 +50,10 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.Product, error) {
+func (s *ProductService) CreateProduct(product models.ProductReq) (*models.Product, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(Prestashop{Product: &product})
+	buf, err := xml.Marshal(PrestashopReq{Product: &product})
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +63,28 @@ func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.P
 		return nil, err
 	}
 
-	psResponse := Prestashop2{}
+	psResponse := Prestashop{}
+	if err := json.Unmarshal(data, &psResponse); err != nil {
+		return nil, err
+	}
+
+	return &psResponse.Product, nil
+}
+
+func (s *ProductService) UpdateProduct(product models.ProductReq) (*models.Product, error) {
+	queryParams := url.Values{}
+
+	buf, err := xml.Marshal(PrestashopReq{Product: &product})
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := s.client.Put(productBasePath, queryParams, bytes.NewBuffer(buf))
+	if err != nil {
+		return nil, err
+	}
+
+	psResponse := Prestashop{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
 		return nil, err
 	}

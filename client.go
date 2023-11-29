@@ -13,14 +13,13 @@ import (
 	"github.com/lciprian/prestashopApi/models"
 )
 
-type Prestashop struct {
+type PrestashopReq struct {
 	XMLName      xml.Name                  `xml:"prestashop"`
-	Product      *models.ProductRequest    `xml:"product,omitempty"`
+	Product      *models.ProductReq        `xml:"product,omitempty"`
 	Combinations *models.ProductVariantReq `xml:"combination,omitempty"`
 }
 
-type Prestashop2 struct {
-	XMLName     xml.Name           `xml:"prestashop"`
+type Prestashop struct {
 	Product     models.Product     `xml:"product,omitempty"`
 	Combination models.Combination `xml:"combination,omitempty"`
 }

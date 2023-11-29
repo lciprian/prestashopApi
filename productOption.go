@@ -50,10 +50,10 @@ func (s *ProductService) ListProductOptions(limit, page int) (*ProductList, erro
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProductOption(product models.ProductRequest) (*models.Product, error) {
+func (s *ProductService) CreateProductOption(product models.ProductReq) (*models.Product, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(Prestashop{Product: &product})
+	buf, err := xml.Marshal(PrestashopReq{Product: &product})
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (s *ProductService) CreateProductOption(product models.ProductRequest) (*mo
 		return nil, err
 	}
 
-	psResponse := Prestashop2{}
+	psResponse := Prestashop{}
 	if err := json.Unmarshal(data, &psResponse); err != nil {
 		return nil, err
 	}
