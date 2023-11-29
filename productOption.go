@@ -10,31 +10,25 @@ import (
 	"github.com/lciprian/prestashopApi/models"
 )
 
-var productBasePath = "products"
+var productOptionBasePath = "product_options"
 
-type ProductService struct {
+type ProductOptionService struct {
 	client *Client
 }
 
-type ProductList struct {
+func newProductOptionService(client *Client) ProductOptionService {
+	return ProductOptionService{
+		client: client,
+	}
+}
+
+type ProductOptionList struct {
 	Limit int
 	Page  int
 	Data  []models.Product `json:"products,omitempty"`
 }
 
-type ProductCombinationList struct {
-	Limit int
-	Page  int
-	Data  []models.Combination `json:"combinations,omitempty"`
-}
-
-func newProductService(client *Client) ProductService {
-	return ProductService{
-		client: client,
-	}
-}
-
-func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
+func (s *ProductService) ListProductOptions(limit, page int) (*ProductList, error) {
 	productList := ProductList{
 		Limit: limit,
 		Page:  page,
@@ -49,14 +43,14 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
 
 	//products := make([]models.Product, 0)
-	if err := s.client.Get(productBasePath, queryParams, &productList); err != nil {
+	if err := s.client.Get(productOptionBasePath, queryParams, &productList); err != nil {
 		return nil, err
 	}
 	//	fmt.Println("-ListProducts---------", products)
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.Product, error) {
+func (s *ProductService) CreateProductOption(product models.ProductRequest) (*models.Product, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(Prestashop{Product: &product})
@@ -64,7 +58,7 @@ func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.P
 		return nil, err
 	}
 
-	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
+	data, err := s.client.Post(productOptionBasePath, queryParams, bytes.NewBuffer(buf))
 	if err != nil {
 		return nil, err
 	}

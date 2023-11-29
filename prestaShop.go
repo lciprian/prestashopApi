@@ -19,11 +19,14 @@ const (
 )
 
 type PrestaShop struct {
-	AppName  string
-	BaseURL  *url.URL
-	Resource ResourceService
-	Product  ProductService
-	Image    ImageService
+	AppName            string
+	BaseURL            *url.URL
+	Resource           ResourceService
+	Product            ProductService
+	ProductVariant     ProductVariantService
+	ProductOption      ProductOptionService
+	ProductOptionValue ProductOptionValueService
+	Image              ImageService
 }
 
 func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
@@ -40,14 +43,10 @@ func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
 	client := ps.newClient(apiKey)
 	ps.Resource = newResourceService(client)
 	ps.Product = newProductService(client)
-
-	ps.Product = ProductService{
-		client: client,
-	}
-
-	ps.Image = ImageService{
-		client: client,
-	}
+	ps.ProductVariant = newProductVariantService(client)
+	ps.ProductOption = newProductOptionService(client)
+	ps.ProductOptionValue = newProductOptionValueService(client)
+	ps.Image = newImageService(client)
 
 	return &ps
 }

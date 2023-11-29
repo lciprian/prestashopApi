@@ -10,31 +10,37 @@ import (
 	"github.com/lciprian/prestashopApi/models"
 )
 
-var productBasePath = "products"
+var productOptionValueBasePath = "product_option_values"
 
-type ProductService struct {
+type ProductOptionValueService struct {
 	client *Client
 }
 
-type ProductList struct {
+func newProductOptionValueService(client *Client) ProductOptionValueService {
+	return ProductOptionValueService{
+		client: client,
+	}
+}
+
+type ProductOptionValueList struct {
 	Limit int
 	Page  int
 	Data  []models.Product `json:"products,omitempty"`
 }
 
-type ProductCombinationList struct {
+type ProductOptionValueCombinationList struct {
 	Limit int
 	Page  int
 	Data  []models.Combination `json:"combinations,omitempty"`
 }
 
-func newProductService(client *Client) ProductService {
+func newOptionValueService(client *Client) ProductService {
 	return ProductService{
 		client: client,
 	}
 }
 
-func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
+func (s *ProductService) ListOptionValues(limit, page int) (*ProductList, error) {
 	productList := ProductList{
 		Limit: limit,
 		Page:  page,
@@ -49,14 +55,14 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
 
 	//products := make([]models.Product, 0)
-	if err := s.client.Get(productBasePath, queryParams, &productList); err != nil {
+	if err := s.client.Get(productOptionValueBasePath, queryParams, &productList); err != nil {
 		return nil, err
 	}
 	//	fmt.Println("-ListProducts---------", products)
 	return &productList, nil
 }
 
-func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.Product, error) {
+func (s *ProductService) CreateOptionValue(product models.ProductRequest) (*models.Product, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(Prestashop{Product: &product})
@@ -64,7 +70,7 @@ func (s *ProductService) CreateProduct(product models.ProductRequest) (*models.P
 		return nil, err
 	}
 
-	data, err := s.client.Post(productBasePath, queryParams, bytes.NewBuffer(buf))
+	data, err := s.client.Post(productOptionValueBasePath, queryParams, bytes.NewBuffer(buf))
 	if err != nil {
 		return nil, err
 	}

@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/lciprian/prestashopApi"
 	"github.com/lciprian/prestashopApi/models"
+
+	"github.com/lciprian/prestashopApi"
 )
 
 func main() {
@@ -18,15 +19,115 @@ func main() {
 
 	//getProducts(ps)
 	//createProducts(ps)
+	//updateProducts(ps, "45")
 	//createProductCombinations(ps, "44")
-	getProductCombinations(ps, "44")
+	//updateProductCombinations(ps, "45", "44")
+	getProductVariants(ps, "44")
 	//createProductImage(ps)
 
 	fmt.Println("----done-----")
 }
 
 func createProducts(ps *prestashopApi.PrestaShop) {
-	productReq := models.ProductRequest{
+	productReq := getNewProduct()
+
+	//ProductType combinations
+	fmt.Printf("----data---%#v--\n", productReq)
+
+	product, err := ps.Product.CreateProduct(productReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----product-----\n", product)
+}
+
+func updateProducts(ps *prestashopApi.PrestaShop) {
+	productReq := getNewProduct()
+
+	//ProductType combinations
+	fmt.Printf("----data---%#v--\n", productReq)
+
+	product, err := ps.Product.CreateProduct(productReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----product-----\n", product)
+}
+
+func getProductVariants(ps *prestashopApi.PrestaShop, pId string) {
+	variants, err := ps.ProductVariant.ListProductVariant(pId, 100, 1)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", variants)
+}
+
+func createProductVariants(ps *prestashopApi.PrestaShop, pId string) {
+	productVariantReq := getNewProductVariant(pId)
+	fmt.Printf("----data---%#v--\n", productVariantReq)
+
+	productVariant, err := ps.ProductVariant.CreateProductVariant(productVariantReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
+func updateProductVariant(ps *prestashopApi.PrestaShop, pId string) {
+	productVariantReq := getNewProductVariant(pId)
+	fmt.Printf("----data---%#v--\n", productVariantReq)
+
+	productVariant, err := ps.ProductVariant.CreateProductVariant(productVariantReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
+func createProductImage(ps *prestashopApi.PrestaShop) {
+	productId := 19
+	filePath := "assets/test.jpg"
+
+	if err := ps.Image.CreateProductImage(productId, filePath); err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----")
+}
+
+func getResources(ps *prestashopApi.PrestaShop) {
+	resources, err := ps.Resource.ListResources()
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", resources)
+}
+
+func getProducts(ps *prestashopApi.PrestaShop) {
+	products, err := ps.Product.ListProducts(100, 1)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", products)
+}
+
+func getNewProduct() models.ProductRequest {
+	return models.ProductRequest{
 		New:               1,
 		IdCategoryDefault: "8",
 		IdShopDefault:     "2",
@@ -74,21 +175,11 @@ func createProducts(ps *prestashopApi.PrestaShop) {
 		Height: "150",
 		Depth:  "50",
 	}
-	//ProductType combinations
-	fmt.Printf("----data---%#v--\n", productReq)
-
-	product, err := ps.Product.CreateProduct(productReq)
-	if err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	fmt.Println("----product-----\n", product)
 }
 
-func createProductCombinations(ps *prestashopApi.PrestaShop, pId string) {
-	productVariantReq := models.ProductVariantReq{
-		IdProduct:       pId,
+func getNewProductVariant(productId string) models.ProductVariantReq {
+	return models.ProductVariantReq{
+		IdProduct:       productId,
 		MinimalQuantity: 1,
 		Reference:       "testsku1",
 		Price:           "123",
@@ -99,118 +190,4 @@ func createProductCombinations(ps *prestashopApi.PrestaShop, pId string) {
 			ID: "5",
 		},
 	}
-
-	fmt.Printf("----data---%#v--\n", productVariantReq)
-
-	productVariant, err := ps.Product.CreateProductCombination(productVariantReq)
-	if err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	fmt.Println("----resources-----", productVariant)
-}
-
-func createProductImage(ps *prestashopApi.PrestaShop) {
-	productId := 19
-	filePath := "assets/test.jpg"
-
-	// Open the image file
-	//file, err := os.Open(filePath)
-	//if err != nil {
-	//	fmt.Println("Error opening file:", err)
-	//	return
-	//}
-	//defer file.Close()
-	//
-	//// Create a buffer to store the request body
-	//var requestBody bytes.Buffer
-	//writer := multipart.NewWriter(&requestBody)
-	//
-	//// Create a form field for the image file
-	//part, err := writer.CreateFormFile("image", filePath)
-	//if err != nil {
-	//	fmt.Println("Error creating form file:", err)
-	//	return
-	//}
-	//
-	//// Copy the file content to the form field
-	//_, err = io.Copy(part, file)
-	//if err != nil {
-	//	fmt.Println("Error copying file to form:", err)
-	//	return
-	//}
-	//fmt.Println("FormDataContentType----------", writer.FormDataContentType())
-	//
-	//// Close the multipart writer to finalize the request body
-	//writer.Close()
-
-	if err := ps.Image.CreateProductImage(productId, filePath); err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	//Create the HTTP request
-	//request, err := http.NewRequest("POST", "http://presto.local/api/images/products/19", &requestBody)
-	//if err != nil {
-	//	fmt.Println("Error creating request:", err)
-	//	return
-	//}
-	//
-	//// Set the Content-Type header
-	//request.Header.Set("Content-Type", writer.FormDataContentType())
-	//request.Header.Set("Output-Format", "JSON")
-	//request.Header.Set("Io-Format", "JSON")
-	//request.Header.Add("Accept", "application/json")
-	//request.Header.Add("User-Agent", "test")
-	//request.Header.Add("Output-Format", "JSON")
-	//request.Header.Add("Io-Format", "JSON")
-	//request.Header.Add("Authorization", fmt.Sprintf("Basic %s", "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"))
-	//
-	//// Perform the request
-	//client := &http.Client{}
-	//response, err := client.Do(request)
-	//if err != nil {
-	//	fmt.Println("Error performing request:", err)
-	//	return
-	//}
-	//defer response.Body.Close()
-	//
-	//// Print the response status code and body
-	//fmt.Println("Response Status:", response.Status)
-	//buf := new(bytes.Buffer)
-	//buf.ReadFrom(response.Body)
-	//fmt.Println("Response Body:", buf.String())
-
-	fmt.Println("----resources-----")
-}
-
-func getResources(ps *prestashopApi.PrestaShop) {
-	resources, err := ps.Resource.ListResources()
-	if err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	fmt.Println("----resources-----", resources)
-}
-
-func getProducts(ps *prestashopApi.PrestaShop) {
-	products, err := ps.Product.ListProducts(100, 1)
-	if err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	fmt.Printf("----resources-----%#v", products)
-}
-
-func getProductCombinations(ps *prestashopApi.PrestaShop, pId string) {
-	variants, err := ps.Product.ListProductCombination(pId, 100, 1)
-	if err != nil {
-		fmt.Println("----done-----", err)
-		return
-	}
-
-	fmt.Printf("----resources-----%#v", variants)
 }
