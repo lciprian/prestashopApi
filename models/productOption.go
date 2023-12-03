@@ -16,7 +16,7 @@ type ProductOptionReq struct {
 
 type ProductOption struct {
 	XMLName      xml.Name     `json:"product_option"`
-	ID           string       `json:"id"`
+	ID           int          `json:"id"`
 	IsColorGroup string       `json:"is_color_group"`
 	GroupType    string       `json:"group_type"`
 	Position     string       `json:"position"`
@@ -26,5 +26,13 @@ type ProductOption struct {
 }
 
 type Associations struct {
-	ProductOptionValues []ProductOptionValue `json:"product_option_values"`
+	ProductOptionValues []ProductOptionValueAssociations `json:"product_option_values"`
+}
+
+type ProductOptionValueAssociations struct {
+	ID               string     `json:"id,omitempty"`
+	IDAttributeGroup string     `json:"id_attribute_group,omitempty"`
+	Color            string     `json:"color,omitempty"`
+	Position         string     `json:"position,omitempty"`
+	Name             []Language `json:"name>language,omitempty"`
 }

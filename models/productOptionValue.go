@@ -14,8 +14,7 @@ type ProductOptionValueReq struct {
 }
 
 type ProductOptionValue struct {
-	XMLName          xml.Name   `json:"product_option_value"`
-	ID               string     `json:"id,omitempty"`
+	ID               int        `json:"id,omitempty"`
 	IDAttributeGroup string     `json:"id_attribute_group,omitempty"`
 	Color            string     `json:"color,omitempty"`
 	Position         string     `json:"position,omitempty"`

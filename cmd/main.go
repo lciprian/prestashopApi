@@ -9,7 +9,7 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "https://presta.local"
+	urlStr := "http://presto.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -25,6 +25,8 @@ func main() {
 	//updateProductVariant(ps, "45", "44")
 	//createProductImage(ps)
 	getProductOptions(ps, "2")
+	//getProductOptionValue(ps, "2")
+	createProductOptionValue(ps, "2")
 
 	fmt.Println("----done-----")
 }
@@ -129,13 +131,49 @@ func getResources(ps *prestashopApi.PrestaShop) {
 }
 
 func getProductOptions(ps *prestashopApi.PrestaShop, pId string) {
-	variants, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
+	result, err := ps.ProductOption.ListProductOptions(pId, 100, 1)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
 	}
 
-	fmt.Printf("----resources-----%#v", variants)
+	fmt.Printf("----resources-----%#v", result)
+}
+
+func getProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
+	result, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", result)
+}
+
+func createProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
+	productVariantReq := getNewProductVariant(pId)
+	fmt.Printf("----data---%#v--\n", productVariantReq)
+
+	productVariant, err := ps.ProductOptionValue.CreateProductOptionValue(productVariantReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
+func updateProductOptionValue(ps *prestashopApi.PrestaShop, pId, vId string) {
+	productVariantReq := getNewUpdateProductVariant(vId, pId)
+	fmt.Printf("----data---%#v--\n", productVariantReq)
+
+	productVariant, err := ps.ProductOptionValue.CreateProductOptionValue(productVariantReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
 }
 
 func getNewProduct() models.ProductReq {
@@ -205,6 +243,37 @@ func getNewProductVariant(productId string) models.ProductVariantReq {
 }
 
 func getNewUpdateProductVariant(variantId, productId string) models.ProductVariantReq {
+	return models.ProductVariantReq{
+		Id:              variantId,
+		IdProduct:       productId,
+		MinimalQuantity: 1,
+		Reference:       "testsku1",
+		Price:           "123",
+		Weight:          "100",
+		ProductOptionValue: struct {
+			ID string `xml:"id"`
+		}{
+			ID: "6",
+		},
+	}
+}
+
+func getNewProductOptionValue(productId string) models.ProductVariantReq {
+	return models.ProductVariantReq{
+		IdProduct:       productId,
+		MinimalQuantity: 1,
+		Reference:       "testsku1",
+		Price:           "123",
+		Weight:          "100",
+		ProductOptionValue: struct {
+			ID string `xml:"id"`
+		}{
+			ID: "5",
+		},
+	}
+}
+
+func getNewUpdateProductOptionValue(variantId, productId string) models.ProductVariantReq {
 	return models.ProductVariantReq{
 		Id:              variantId,
 		IdProduct:       productId,

@@ -29,7 +29,7 @@ type ProductVariantReq struct {
 	} `xml:"associations>images>image,omitempty"`
 }
 
-type Combination struct {
+type Variant struct {
 	Id                int         `json:"id"`
 	IdProduct         string      `json:"id_product"`
 	Location          string      `json:"location"`

@@ -12,6 +12,12 @@ import (
 
 var productOptionBasePath = "product_options"
 
+type ProductOptionList struct {
+	Limit int
+	Page  int
+	Data  []models.ProductOption `json:"product_options,omitempty"`
+}
+
 type ProductOptionService struct {
 	client *Client
 }
@@ -22,18 +28,7 @@ func newProductOptionService(client *Client) ProductOptionService {
 	}
 }
 
-type ProductOptionList struct {
-	Limit int
-	Page  int
-	Data  []models.Product `json:"products,omitempty"`
-}
-
-func (s *ProductService) ListProductOptions(limit, page int) (*ProductList, error) {
-	productList := ProductList{
-		Limit: limit,
-		Page:  page,
-	}
-
+func (s *ProductOptionService) ListProductOptions(prodOptionId string, limit, page int) (*ProductOptionList, error) {
 	if page > 0 {
 		page -= 1
 	}
@@ -41,16 +36,22 @@ func (s *ProductService) ListProductOptions(limit, page int) (*ProductList, erro
 	queryParams := url.Values{}
 	queryParams.Add("display", "full")
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
+	if prodOptionId == "" {
+		queryParams.Add("filter[id_attribute_group]", prodOptionId)
+	}
 
-	//products := make([]models.Product, 0)
-	if err := s.client.Get(productOptionBasePath, queryParams, &productList); err != nil {
+	result := ProductOptionList{
+		Limit: limit,
+		Page:  page,
+	}
+
+	if err := s.client.Get(productOptionBasePath, queryParams, &result); err != nil {
 		return nil, err
 	}
-	//	fmt.Println("-ListProducts---------", products)
-	return &productList, nil
+	return &result, nil
 }
 
-func (s *ProductService) CreateProductOption(product models.ProductReq) (*models.Product, error) {
+func (s *ProductOptionService) CreateProductOption(product models.ProductReq) (*models.Product, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{Product: &product})

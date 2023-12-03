@@ -12,14 +12,14 @@ import (
 
 var productBasePath = "products"
 
-type ProductService struct {
-	client *Client
-}
-
 type ProductList struct {
 	Limit int
 	Page  int
 	Data  []models.Product `json:"products,omitempty"`
+}
+
+type ProductService struct {
+	client *Client
 }
 
 func newProductService(client *Client) ProductService {

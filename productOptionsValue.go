@@ -12,6 +12,12 @@ import (
 
 var productOptionValueBasePath = "product_option_values"
 
+type ProductOptionValueList struct {
+	Limit int
+	Page  int
+	Data  []models.ProductOptionValue `json:"product_option_values,omitempty"`
+}
+
 type ProductOptionValueService struct {
 	client *Client
 }
@@ -22,30 +28,13 @@ func newProductOptionValueService(client *Client) ProductOptionValueService {
 	}
 }
 
-type ProductOptionValueList struct {
-	Limit int
-	Page  int
-	Data  []models.Product `json:"products,omitempty"`
-}
-
 type ProductOptionValueCombinationList struct {
 	Limit int
 	Page  int
-	Data  []models.Combination `json:"combinations,omitempty"`
+	Data  []models.Variant `json:"combinations,omitempty"`
 }
 
-func newOptionValueService(client *Client) ProductService {
-	return ProductService{
-		client: client,
-	}
-}
-
-func (s *ProductOptionValueService) ListProductOptionValues(prodOptionId string, limit, page int) (*ProductList, error) {
-	productList := ProductList{
-		Limit: limit,
-		Page:  page,
-	}
-
+func (s *ProductOptionValueService) ListProductOptionValues(prodOptionId string, limit, page int) (*ProductOptionValueList, error) {
 	if page > 0 {
 		page -= 1
 	}
@@ -58,15 +47,18 @@ func (s *ProductOptionValueService) ListProductOptionValues(prodOptionId string,
 		queryParams.Add("filter[id_attribute_group]", prodOptionId)
 	}
 
-	//products := make([]models.Product, 0)
-	if err := s.client.Get(productOptionValueBasePath, queryParams, &productList); err != nil {
+	productOptionValueList := ProductOptionValueList{
+		Limit: limit,
+		Page:  page,
+	}
+	if err := s.client.Get(productOptionValueBasePath, queryParams, &productOptionValueList); err != nil {
 		return nil, err
 	}
 	//	fmt.Println("-ListProducts---------", products)
-	return &productList, nil
+	return &productOptionValueList, nil
 }
 
-func (s *ProductOptionValueService) CreateProductOptionValue(product models.ProductReq) (*models.Product, error) {
+func (s *ProductOptionValueService) CreateProductOptionValue(product models.ProductReq) (*models.ProductOptionValue, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{Product: &product})
@@ -84,10 +76,10 @@ func (s *ProductOptionValueService) CreateProductOptionValue(product models.Prod
 		return nil, err
 	}
 
-	return &psResponse.Product, nil
+	return &psResponse.ProductOptionValue, nil
 }
 
-func (s *ProductOptionValueService) UpdateProductOptionValue(product models.ProductReq) (*models.Product, error) {
+func (s *ProductOptionValueService) UpdateProductOptionValue(product models.ProductReq) (*models.ProductOptionValue, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{Product: &product})
@@ -105,5 +97,5 @@ func (s *ProductOptionValueService) UpdateProductOptionValue(product models.Prod
 		return nil, err
 	}
 
-	return &psResponse.Product, nil
+	return &psResponse.ProductOptionValue, nil
 }

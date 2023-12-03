@@ -15,7 +15,7 @@ var productVariantBasePath = "combinations"
 type ProductVariationList struct {
 	Limit int
 	Page  int
-	Data  []models.Combination `json:"combinations,omitempty"`
+	Data  []models.Variant `json:"combinations,omitempty"`
 }
 
 type ProductVariantService struct {
@@ -52,7 +52,7 @@ func (s *ProductVariantService) ListProductVariant(productId string, limit, page
 	return &productCombinationList, nil
 }
 
-func (s *ProductVariantService) CreateProductVariant(productVariant models.ProductVariantReq) (*models.Combination, error) {
+func (s *ProductVariantService) CreateProductVariant(productVariant models.ProductVariantReq) (*models.Variant, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{Combinations: &productVariant})
@@ -70,10 +70,10 @@ func (s *ProductVariantService) CreateProductVariant(productVariant models.Produ
 		return nil, err
 	}
 
-	return &psResponse.Combination, nil
+	return &psResponse.Variant, nil
 }
 
-func (s *ProductVariantService) UpdateProductVariant(productVariant models.ProductVariantReq) (*models.Combination, error) {
+func (s *ProductVariantService) UpdateProductVariant(productVariant models.ProductVariantReq) (*models.Variant, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{Combinations: &productVariant})
@@ -91,5 +91,5 @@ func (s *ProductVariantService) UpdateProductVariant(productVariant models.Produ
 		return nil, err
 	}
 
-	return &psResponse.Combination, nil
+	return &psResponse.Variant, nil
 }
