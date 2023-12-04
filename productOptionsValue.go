@@ -58,10 +58,10 @@ func (s *ProductOptionValueService) ListProductOptionValues(prodOptionId string,
 	return &productOptionValueList, nil
 }
 
-func (s *ProductOptionValueService) CreateProductOptionValue(product models.ProductReq) (*models.ProductOptionValue, error) {
+func (s *ProductOptionValueService) CreateProductOptionValue(productOption models.ProductOptionValueReq) (*models.ProductOptionValue, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(PrestashopReq{Product: &product})
+	buf, err := xml.Marshal(PrestashopReq{ProductOptionValue: &productOption})
 	if err != nil {
 		return nil, err
 	}
@@ -79,10 +79,10 @@ func (s *ProductOptionValueService) CreateProductOptionValue(product models.Prod
 	return &psResponse.ProductOptionValue, nil
 }
 
-func (s *ProductOptionValueService) UpdateProductOptionValue(product models.ProductReq) (*models.ProductOptionValue, error) {
+func (s *ProductOptionValueService) UpdateProductOptionValue(productOption models.ProductOptionValueReq) (*models.ProductOptionValue, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(PrestashopReq{Product: &product})
+	buf, err := xml.Marshal(PrestashopReq{ProductOptionValue: &productOption})
 	if err != nil {
 		return nil, err
 	}

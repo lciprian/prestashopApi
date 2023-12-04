@@ -51,10 +51,10 @@ func (s *ProductOptionService) ListProductOptions(prodOptionId string, limit, pa
 	return &result, nil
 }
 
-func (s *ProductOptionService) CreateProductOption(product models.ProductReq) (*models.Product, error) {
+func (s *ProductOptionService) CreateProductOption(productOption models.ProductOptionReq) (*models.ProductOption, error) {
 	queryParams := url.Values{}
 
-	buf, err := xml.Marshal(PrestashopReq{Product: &product})
+	buf, err := xml.Marshal(PrestashopReq{ProductOption: &productOption})
 	if err != nil {
 		return nil, err
 	}
@@ -69,5 +69,26 @@ func (s *ProductOptionService) CreateProductOption(product models.ProductReq) (*
 		return nil, err
 	}
 
-	return &psResponse.Product, nil
+	return &psResponse.ProductOption, nil
+}
+
+func (s *ProductOptionService) UpdateProductOption(productOption models.ProductOptionReq) (*models.ProductOption, error) {
+	queryParams := url.Values{}
+
+	buf, err := xml.Marshal(PrestashopReq{ProductOption: &productOption})
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := s.client.Post(productOptionBasePath, queryParams, bytes.NewBuffer(buf))
+	if err != nil {
+		return nil, err
+	}
+
+	psResponse := Prestashop{}
+	if err := json.Unmarshal(data, &psResponse); err != nil {
+		return nil, err
+	}
+
+	return &psResponse.ProductOption, nil
 }

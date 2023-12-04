@@ -24,9 +24,10 @@ func main() {
 	//createProductVariant(ps, "44")
 	//updateProductVariant(ps, "45", "44")
 	//createProductImage(ps)
-	getProductOptions(ps, "2")
+	//getProductOptions(ps, "2")
 	//getProductOptionValue(ps, "2")
 	createProductOptionValue(ps, "2")
+	//updateProductOptionValue(ps, "2")
 
 	fmt.Println("----done-----")
 }
@@ -140,6 +141,42 @@ func getProductOptions(ps *prestashopApi.PrestaShop, pId string) {
 	fmt.Printf("----resources-----%#v", result)
 }
 
+func getProductOption(ps *prestashopApi.PrestaShop, pId string) {
+	result, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", result)
+}
+
+func createProductOption(ps *prestashopApi.PrestaShop, pId string) {
+	productOptionReq := getNewProductOption()
+	fmt.Printf("----data---%#v--\n", productOptionReq)
+
+	productVariant, err := ps.ProductOption.CreateProductOption(productOptionReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
+func updateProductOption(ps *prestashopApi.PrestaShop, pId, vId string) {
+	productOptionReq := getUpdateProductOption()
+	fmt.Printf("----data---%#v--\n", productOptionReq)
+
+	productOption, err := ps.ProductOption.UpdateProductOption(productOptionReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productOption)
+}
+
 func getProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
 	result, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
 	if err != nil {
@@ -151,10 +188,10 @@ func getProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
 }
 
 func createProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
-	productVariantReq := getNewProductVariant(pId)
-	fmt.Printf("----data---%#v--\n", productVariantReq)
+	productOptionReq := getNewProductOptionValue(pId)
+	fmt.Printf("----data---%#v--\n", productOptionReq)
 
-	productVariant, err := ps.ProductOptionValue.CreateProductOptionValue(productVariantReq)
+	productVariant, err := ps.ProductOptionValue.CreateProductOptionValue(productOptionReq)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
@@ -164,10 +201,10 @@ func createProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
 }
 
 func updateProductOptionValue(ps *prestashopApi.PrestaShop, pId, vId string) {
-	productVariantReq := getNewUpdateProductVariant(vId, pId)
+	productVariantReq := getUpdateProductOptionValue(pId, vId)
 	fmt.Printf("----data---%#v--\n", productVariantReq)
 
-	productVariant, err := ps.ProductOptionValue.CreateProductOptionValue(productVariantReq)
+	productVariant, err := ps.ProductOptionValue.UpdateProductOptionValue(productVariantReq)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
@@ -258,33 +295,61 @@ func getNewUpdateProductVariant(variantId, productId string) models.ProductVaria
 	}
 }
 
-func getNewProductOptionValue(productId string) models.ProductVariantReq {
-	return models.ProductVariantReq{
-		IdProduct:       productId,
-		MinimalQuantity: 1,
-		Reference:       "testsku1",
-		Price:           "123",
-		Weight:          "100",
-		ProductOptionValue: struct {
-			ID string `xml:"id"`
-		}{
-			ID: "5",
+func getNewProductOption() models.ProductOptionReq {
+	return models.ProductOptionReq{
+		Name: []models.Language{
+			{
+				ID:   "1",
+				Text: "Marsala",
+			},
+			{
+				ID:   "2",
+				Text: "Marsala",
+			},
+		},
+		PublicName: []models.Language{
+			{
+				ID:   "1",
+				Text: "Marsala",
+			},
+			{
+				ID:   "2",
+				Text: "Marsala",
+			},
 		},
 	}
 }
 
-func getNewUpdateProductOptionValue(variantId, productId string) models.ProductVariantReq {
-	return models.ProductVariantReq{
-		Id:              variantId,
-		IdProduct:       productId,
-		MinimalQuantity: 1,
-		Reference:       "testsku1",
-		Price:           "123",
-		Weight:          "100",
-		ProductOptionValue: struct {
-			ID string `xml:"id"`
-		}{
-			ID: "6",
+func getUpdateProductOption() models.ProductOptionReq {
+	return models.ProductOptionReq{
+		Name: []models.Language{
+			{
+				ID:   "2",
+				Text: "Marsala",
+			},
+		},
+		PublicName: []models.Language{
+			{
+				ID:   "2",
+				Text: "Marsala",
+			},
 		},
 	}
+}
+
+func getNewProductOptionValue(attrId string) models.ProductOptionValueReq {
+	return models.ProductOptionValueReq{
+		IDAttributeGroup: attrId,
+		Color:            "Red",
+		Name: []models.Language{
+			{
+				ID:   "2",
+				Text: "Marsala",
+			},
+		},
+	}
+}
+
+func getUpdateProductOptionValue(variantId, productId string) models.ProductOptionValueReq {
+	return models.ProductOptionValueReq{}
 }

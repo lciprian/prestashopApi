@@ -14,14 +14,17 @@ import (
 )
 
 type PrestashopReq struct {
-	XMLName      xml.Name                  `xml:"prestashop"`
-	Product      *models.ProductReq        `xml:"product,omitempty"`
-	Combinations *models.ProductVariantReq `xml:"combination,omitempty"`
+	XMLName            xml.Name                      `xml:"prestashop"`
+	Product            *models.ProductReq            `xml:"product,omitempty"`
+	Combinations       *models.ProductVariantReq     `xml:"combination,omitempty"`
+	ProductOption      *models.ProductOptionReq      `xml:"product_option,omitempty"`
+	ProductOptionValue *models.ProductOptionValueReq `xml:"product_option_value,omitempty"`
 }
 
 type Prestashop struct {
 	Product            models.Product            `xml:"product,omitempty"`
 	Variant            models.Variant            `xml:"combination,omitempty"`
+	ProductOption      models.ProductOption      `xml:"product_options,omitempty"`
 	ProductOptionValue models.ProductOptionValue `xml:"product_option_values,omitempty"`
 }
 

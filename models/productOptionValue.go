@@ -1,11 +1,6 @@
 package models
 
-import (
-	"encoding/xml"
-)
-
 type ProductOptionValueReq struct {
-	XMLName          xml.Name   `xml:"product_option_value"`
 	ID               string     `xml:"id"`
 	IDAttributeGroup string     `xml:"id_attribute_group"`
 	Color            string     `xml:"color"`
