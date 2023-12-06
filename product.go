@@ -15,7 +15,7 @@ var productBasePath = "products"
 type ProductList struct {
 	Limit int
 	Page  int
-	Data  []models.Product `json:"products,omitempty"`
+	Data  []models.ProductL `json:"products,omitempty"`
 }
 
 type ProductService struct {
@@ -29,11 +29,6 @@ func newProductService(client *Client) ProductService {
 }
 
 func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
-	productList := ProductList{
-		Limit: limit,
-		Page:  page,
-	}
-
 	if page > 0 {
 		page -= 1
 	}
@@ -42,11 +37,11 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	queryParams.Add("display", "full")
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
 
-	//products := make([]models.Product, 0)
+	productList := ProductList{Limit: limit, Page: page}
 	if err := s.client.Get(productBasePath, queryParams, &productList); err != nil {
 		return nil, err
 	}
-	//	fmt.Println("-ListProducts---------", products)
+
 	return &productList, nil
 }
 

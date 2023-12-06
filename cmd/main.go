@@ -9,7 +9,7 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "http://presto.local"
+	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -26,7 +26,7 @@ func main() {
 	//createProductImage(ps)
 	//getProductOptions(ps, "2")
 	//getProductOptionValue(ps, "2")
-	createProductOptionValue(ps, "2")
+	//createProductOptionValue(ps, "2")
 	//updateProductOptionValue(ps, "2")
 
 	fmt.Println("----done-----")
@@ -83,7 +83,7 @@ func getProductVariants(ps *prestashopApi.PrestaShop, pId string) {
 	fmt.Printf("----resources-----%#v", variants)
 }
 
-func createProductVariants(ps *prestashopApi.PrestaShop, pId string) {
+func createProductVariant(ps *prestashopApi.PrestaShop, pId string) {
 	productVariantReq := getNewProductVariant(pId)
 	fmt.Printf("----data---%#v--\n", productVariantReq)
 
@@ -100,7 +100,7 @@ func updateProductVariant(ps *prestashopApi.PrestaShop, pId, vId string) {
 	productVariantReq := getNewUpdateProductVariant(vId, pId)
 	fmt.Printf("----data---%#v--\n", productVariantReq)
 
-	productVariant, err := ps.ProductVariant.CreateProductVariant(productVariantReq)
+	productVariant, err := ps.ProductVariant.UpdateProductVariant(productVariantReq)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
@@ -222,8 +222,8 @@ func getNewProduct() models.ProductReq {
 		State:             "1",
 		Type:              "0",
 		Price:             "123",
-		Name: &models.MetaDataRequest{
-			Language: []models.Language{
+		Name: &models.MetaDataReq{
+			Language: []models.LanguageReq{
 				{
 					ID:   "1",
 					Text: "My awesome Product 2",
@@ -234,8 +234,8 @@ func getNewProduct() models.ProductReq {
 				},
 			},
 		},
-		Description: &models.MetaDataRequest{
-			Language: []models.Language{
+		Description: &models.MetaDataReq{
+			Language: []models.LanguageReq{
 				{
 					ID:   "1",
 					Text: "My awesome Product Description 2",
@@ -246,8 +246,8 @@ func getNewProduct() models.ProductReq {
 				},
 			},
 		},
-		DescriptionShort: &models.MetaDataRequest{
-			Language: []models.Language{
+		DescriptionShort: &models.MetaDataReq{
+			Language: []models.LanguageReq{
 				{
 					ID:   "1",
 					Text: "My awesome Product DescriptionShort 2",
@@ -297,7 +297,7 @@ func getNewUpdateProductVariant(variantId, productId string) models.ProductVaria
 
 func getNewProductOption() models.ProductOptionReq {
 	return models.ProductOptionReq{
-		Name: []models.Language{
+		Name: []models.LanguageReq{
 			{
 				ID:   "1",
 				Text: "Marsala",
@@ -307,7 +307,7 @@ func getNewProductOption() models.ProductOptionReq {
 				Text: "Marsala",
 			},
 		},
-		PublicName: []models.Language{
+		PublicName: []models.LanguageReq{
 			{
 				ID:   "1",
 				Text: "Marsala",
@@ -322,13 +322,13 @@ func getNewProductOption() models.ProductOptionReq {
 
 func getUpdateProductOption() models.ProductOptionReq {
 	return models.ProductOptionReq{
-		Name: []models.Language{
+		Name: []models.LanguageReq{
 			{
 				ID:   "2",
 				Text: "Marsala",
 			},
 		},
-		PublicName: []models.Language{
+		PublicName: []models.LanguageReq{
 			{
 				ID:   "2",
 				Text: "Marsala",
@@ -340,8 +340,12 @@ func getUpdateProductOption() models.ProductOptionReq {
 func getNewProductOptionValue(attrId string) models.ProductOptionValueReq {
 	return models.ProductOptionValueReq{
 		IDAttributeGroup: attrId,
-		Color:            "Red",
-		Name: []models.Language{
+		Color:            "Marsala",
+		Name: []models.LanguageReq{
+			{
+				ID:   "1",
+				Text: "Marsala",
+			},
 			{
 				ID:   "2",
 				Text: "Marsala",

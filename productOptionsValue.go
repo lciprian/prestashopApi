@@ -15,7 +15,7 @@ var productOptionValueBasePath = "product_option_values"
 type ProductOptionValueList struct {
 	Limit int
 	Page  int
-	Data  []models.ProductOptionValue `json:"product_option_values,omitempty"`
+	Data  []models.ProductOptionValueL `json:"product_option_values,omitempty"`
 }
 
 type ProductOptionValueService struct {

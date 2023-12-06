@@ -29,8 +29,39 @@ type ProductVariantReq struct {
 	} `xml:"associations>images>image,omitempty"`
 }
 
-type Variant struct {
+type VariantL struct {
 	Id                int         `json:"id"`
+	IdProduct         string      `json:"id_product"`
+	Location          string      `json:"location"`
+	Ean13             string      `json:"ean13"`
+	Isbn              string      `json:"isbn"`
+	Upc               string      `json:"upc"`
+	Mpn               string      `json:"mpn"`
+	Quantity          int         `json:"quantity"`
+	Reference         string      `json:"reference"`
+	SupplierReference string      `json:"supplier_reference"`
+	WholesalePrice    string      `json:"wholesale_price"`
+	Price             string      `json:"price"`
+	Ecotax            string      `json:"ecotax"`
+	Weight            string      `json:"weight"`
+	UnitPriceImpact   string      `json:"unit_price_impact"`
+	MinimalQuantity   string      `json:"minimal_quantity"`
+	LowStockThreshold interface{} `json:"low_stock_threshold"`
+	LowStockAlert     string      `json:"low_stock_alert"`
+	DefaultOn         interface{} `json:"default_on"`
+	AvailableDate     string      `json:"available_date"`
+	Associations      struct {
+		ProductOptionValues []struct {
+			ID string `json:"id"`
+		} `json:"product_option_values"`
+		Images []struct {
+			ID string `json:"id"`
+		} `json:"images"`
+	} `json:"associations"`
+}
+
+type Variant struct {
+	Id                string      `json:"id"`
 	IdProduct         string      `json:"id_product"`
 	Location          string      `json:"location"`
 	Ean13             string      `json:"ean13"`

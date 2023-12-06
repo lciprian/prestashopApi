@@ -1,65 +1,36 @@
-<?php
-
-$urlImage = 'http://example.com/api/images/products/10/';
-$key  = 'ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT';
-
-//Here you set the path to the image you need to upload
-$image_path = '/path/to/the/image.jpg';
-$image_mime = 'image/jpg';
-
-$args['image'] = new CurlFile($image_path, $image_mime);
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
-curl_setopt($ch, CURLOPT_URL, $urlImage);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_USERPWD, $key.':');
-curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-$result = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
-
-if (200 == $httpCode) {
-echo 'Product image was successfully created.';
+{
+  "combination": {
+    "id": "52",
+    "id_product": "44",
+    "location": null,
+    "ean13": null,
+    "isbn": null,
+    "upc": null,
+    "mpn": null,
+    "quantity": null,
+    "reference": "testsku1",
+    "supplier_reference": null,
+    "wholesale_price": null,
+    "price": "123",
+    "ecotax": null,
+    "weight": "100",
+    "unit_price_impact": null,
+    "minimal_quantity": "1",
+    "low_stock_threshold": null,
+    "low_stock_alert": null,
+    "default_on": null,
+    "available_date": null,
+    "associations": {
+      "product_option_values": [
+        {
+          "id": "5"
+        }
+      ],
+      "images": [
+        {
+          "id": "0"
+        }
+      ]
+    }
+  }
 }
-
-
-//func (s *ProductService) listProducts() ([]Product, error) {
-//	productList := ProductList{}
-//
-//	itemsPerPage := 10 // Set the number of products to retrieve per page
-//
-//	totalProducts := 0
-//	page := 1
-//
-//	for {
-//		// Construct the API URL for the current page
-//		apiURL := fmt.Sprintf("%s/products?display=full&page=%d&limit=%d", baseURL, page, itemsPerPage)
-//
-//		data, err := ioutil.ReadAll(resp.Body)
-//		if err != nil {
-//			fmt.Println("Error reading response:", err)
-//			return
-//		}
-//
-//		products := parseProducts(data)
-//		productCount := len(products)
-//
-//		//Add the productCount to the total
-//		totalProducts += productCount
-//
-//		// Check if there are more pages to retrieve
-//		if productCount < itemsPerPage {
-//			break
-//		}
-//
-//		// Increment the page number for the next request
-//		page++
-//	}
-//
-//	fmt.Printf("Total number of products: %d\n", totalProducts)
-//
-//	return productList.Products, err
-//}

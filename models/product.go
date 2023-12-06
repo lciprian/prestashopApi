@@ -25,15 +25,15 @@ type ProductReq struct {
 	Upc   string `json:"upc" xml:"upc,omitempty"`
 	Mpn   string `json:"mpn" xml:"mpn,omitempty"`
 
-	Name             *MetaDataRequest `json:"name,omitempty" xml:"name,omitempty"`
-	Description      *MetaDataRequest `json:"description,omitempty" xml:"description,omitempty"`
-	DescriptionShort *MetaDataRequest `json:"description_short,omitempty" xml:"description_short,omitempty"`
-	//AvailableNow     *MetaDataRequest         `json:"available_now,omitempty" xml:"available_now,omitempty"`
-	//AvailableLater   *MetaDataRequest         `json:"available_later,omitempty" xml:"available_later,omitempty"`
+	Name             *MetaDataReq `json:"name,omitempty" xml:"name,omitempty"`
+	Description      *MetaDataReq `json:"description,omitempty" xml:"description,omitempty"`
+	DescriptionShort *MetaDataReq `json:"description_short,omitempty" xml:"description_short,omitempty"`
+	//AvailableNow     *MetaDataReq         `json:"available_now,omitempty" xml:"available_now,omitempty"`
+	//AvailableLater   *MetaDataReq         `json:"available_later,omitempty" xml:"available_later,omitempty"`
 	//Associations     ProductAssociations `json:"associations" xml:"associations,omitempty"`
-	MetaDescription *MetaDataRequest `json:"meta_description,omitempty" xml:"meta_description,omitempty"`
-	MetaKeywords    *MetaDataRequest `json:"meta_keywords,omitempty" xml:"meta_keywords,omitempty"`
-	MetaTitle       *MetaDataRequest `json:"meta_title,omitempty" xml:"meta_title,omitempty"`
+	MetaDescription *MetaDataReq `json:"meta_description,omitempty" xml:"meta_description,omitempty"`
+	MetaKeywords    *MetaDataReq `json:"meta_keywords,omitempty" xml:"meta_keywords,omitempty"`
+	MetaTitle       *MetaDataReq `json:"meta_title,omitempty" xml:"meta_title,omitempty"`
 
 	Width  string `json:"width" xml:"width,omitempty"`
 	Height string `json:"height" xml:"height,omitempty"`
@@ -45,8 +45,8 @@ type ProductReq struct {
 	State       string `json:"state" xml:"state,omitempty"`
 	ProductType string `json:"product_type" xml:"product_type,omitempty"`
 	//AdditionalDeliveryTimes string      `json:"additional_delivery_times" xml:"additional_delivery_times,omitempty"`
-	//DeliveryInStock         *MetaDataRequest  `json:"delivery_in_stock,omitempty" xml:"delivery_in_stock,omitempty"`
-	//DeliveryOutStock        *MetaDataRequest  `json:"delivery_out_stock,omitempty" xml:"delivery_out_stock,omitempty"`
+	//DeliveryInStock         *MetaDataReq  `json:"delivery_in_stock,omitempty" xml:"delivery_in_stock,omitempty"`
+	//DeliveryOutStock        *MetaDataReq  `json:"delivery_out_stock,omitempty" xml:"delivery_out_stock,omitempty"`
 	//OnSale                  string      `json:"on_sale" xml:"on_sale,omitempty"`
 	//OnlineOnly              string      `json:"online_only" xml:"online_only,omitempty"`
 	//Ecotax                  string      `json:"ecotax" xml:"ecotax,omitempty"`
@@ -75,15 +75,15 @@ type ProductReq struct {
 	//DateAdd                 string     `json:"date_add" xml:"date_add,omitempty"`
 	//DateUpd                 string     `json:"date_upd" xml:"date_upd,omitempty"`
 	//PackStockType           string     `json:"pack_stock_type" xml:"pack_stock_type,omitempty"`
-	//LinkRewrite             []MetaDataRequest `json:"link_rewrite" xml:"link_rewrite,omitempty"`
+	//LinkRewrite             []MetaDataReq `json:"link_rewrite" xml:"link_rewrite,omitempty"`
 	//CacheIsPack             string     `json:"cache_is_pack" xml:"cache_is_pack,omitempty"`
 	//CacheHasAttachments     string     `json:"cache_has_attachments" xml:"cache_has_attachments,omitempty"`
 	//IsVirtual               string     `json:"is_virtual" xml:"is_virtual,omitempty"`
 	//CacheDefaultAttribute json.Number `json:"cache_default_attribute" xml:"cache_default_attribute,omitempty"`
 }
 
-type Product struct {
-	Id                      string              `json:"id"`
+type ProductL struct {
+	Id                      int                 `json:"id"`
 	IdManufacturer          string              `json:"id_manufacturer"`
 	IdSupplier              string              `json:"id_supplier"`
 	IdCategoryDefault       string              `json:"id_category_default"`
@@ -114,8 +114,8 @@ type Product struct {
 	IsVirtual               string              `json:"is_virtual"`
 	State                   string              `json:"state"`
 	AdditionalDeliveryTimes string              `json:"additional_delivery_times"`
-	DeliveryInStock         string              `json:"delivery_in_stock,omitempty"`
-	DeliveryOutStock        string              `json:"delivery_out_stock,omitempty"`
+	DeliveryInStock         []*MetaData         `json:"delivery_in_stock,omitempty"`
+	DeliveryOutStock        []*MetaData         `json:"delivery_out_stock,omitempty"`
 	ProductType             string              `json:"product_type"`
 	OnSale                  string              `json:"on_sale"`
 	OnlineOnly              string              `json:"online_only"`
@@ -145,16 +145,91 @@ type Product struct {
 	DateAdd                 string              `json:"date_add"`
 	DateUpd                 string              `json:"date_upd"`
 	PackStockType           string              `json:"pack_stock_type"`
-	MetaDescription         string              `json:"meta_description,omitempty"`
-	MetaKeywords            string              `json:"meta_keywords,omitempty"`
-	MetaTitle               string              `json:"meta_title,omitempty"`
-	LinkRewrite             string              `json:"link_rewrite"`
+	MetaDescription         []*MetaData         `json:"meta_description,omitempty"`
+	MetaKeywords            []*MetaData         `json:"meta_keywords,omitempty"`
+	MetaTitle               []*MetaData         `json:"meta_title,omitempty"`
+	LinkRewrite             []*MetaData         `json:"link_rewrite"`
 	Name                    []*MetaData         `json:"name,omitempty"`
 	Description             []*MetaData         `json:"description,omitempty"`
 	DescriptionShort        []*MetaData         `json:"description_short,omitempty"`
-	AvailableNow            string              `json:"available_now,omitempty"`
-	AvailableLater          string              `json:"available_later,omitempty"`
+	AvailableNow            []*MetaDataReq      `json:"available_now,omitempty"`
+	AvailableLater          []*MetaDataReq      `json:"available_later,omitempty"`
 	Associations            ProductAssociations `json:"associations"`
+}
+
+type Product struct {
+	Id                      string      `json:"id"`
+	IdManufacturer          string      `json:"id_manufacturer"`
+	IdSupplier              string      `json:"id_supplier"`
+	IdCategoryDefault       string      `json:"id_category_default"`
+	New                     interface{} `json:"new"`
+	CacheDefaultAttribute   string      `json:"cache_default_attribute"`
+	IdDefaultImage          string      `json:"id_default_image"`
+	IdDefaultCombination    json.Number `json:"id_default_combination"`
+	IdTaxRulesGroup         string      `json:"id_tax_rules_group"`
+	PositionInCategory      string      `json:"position_in_category"`
+	ManufacturerName        interface{} `json:"manufacturer_name"`
+	Quantity                string      `json:"quantity"`
+	Type                    string      `json:"type"`
+	IdShopDefault           json.Number `json:"id_shop_default"`
+	Reference               string      `json:"reference"`
+	SupplierReference       string      `json:"supplier_reference"`
+	Location                string      `json:"location"`
+	Width                   string      `json:"width"`
+	Height                  string      `json:"height"`
+	Depth                   string      `json:"depth"`
+	Weight                  string      `json:"weight"`
+	QuantityDiscount        string      `json:"quantity_discount"`
+	Ean13                   string      `json:"ean13"`
+	Isbn                    string      `json:"isbn"`
+	Upc                     string      `json:"upc"`
+	Mpn                     string      `json:"mpn"`
+	CacheIsPack             string      `json:"cache_is_pack"`
+	CacheHasAttachments     string      `json:"cache_has_attachments"`
+	IsVirtual               string      `json:"is_virtual"`
+	State                   string      `json:"state"`
+	AdditionalDeliveryTimes string      `json:"additional_delivery_times"`
+	DeliveryInStock         string      `json:"delivery_in_stock,omitempty"`
+	DeliveryOutStock        string      `json:"delivery_out_stock,omitempty"`
+	ProductType             string      `json:"product_type"`
+	OnSale                  string      `json:"on_sale"`
+	OnlineOnly              string      `json:"online_only"`
+	Ecotax                  string      `json:"ecotax"`
+	MinimalQuantity         string      `json:"minimal_quantity"`
+	LowStockThreshold       interface{} `json:"low_stock_threshold"`
+	LowStockAlert           string      `json:"low_stock_alert"`
+	Price                   string      `json:"price" xml:"price"`
+	WholesalePrice          string      `json:"wholesale_price"`
+	Unity                   string      `json:"unity"`
+	UnitPriceRatio          string      `json:"unit_price_ratio"`
+	AdditionalShippingCost  string      `json:"additional_shipping_cost"`
+	Customizable            string      `json:"customizable"`
+	TextFields              string      `json:"text_fields"`
+	UploadableFiles         string      `json:"uploadable_files"`
+	Active                  string      `json:"active"`
+	RedirectType            string      `json:"redirect_type"`
+	IdTypeRedirected        string      `json:"id_type_redirected"`
+	AvailableForOrder       string      `json:"available_for_order"`
+	AvailableDate           string      `json:"available_date"`
+	ShowCondition           string      `json:"show_condition"`
+	Condition               string      `json:"condition"`
+	ShowPrice               string      `json:"show_price"`
+	Indexed                 string      `json:"indexed"`
+	Visibility              string      `json:"visibility"`
+	AdvancedStockManagement string      `json:"advanced_stock_management"`
+	DateAdd                 string      `json:"date_add"`
+	DateUpd                 string      `json:"date_upd"`
+	PackStockType           string      `json:"pack_stock_type"`
+	MetaDescription         string      `json:"meta_description,omitempty"`
+	MetaKeywords            string      `json:"meta_keywords,omitempty"`
+	MetaTitle               string      `json:"meta_title,omitempty"`
+	//LinkRewrite             []*MetaData         `json:"link_rewrite,omitempty"`
+	Name             []*MetaData         `json:"name,omitempty"`
+	Description      []*MetaData         `json:"description,omitempty"`
+	DescriptionShort []*MetaData         `json:"description_short,omitempty"`
+	AvailableNow     string              `json:"available_now,omitempty"`
+	AvailableLater   string              `json:"available_later,omitempty"`
+	Associations     ProductAssociations `json:"associations"`
 }
 
 type ProductAssociations struct {
@@ -167,24 +242,24 @@ type ProductAssociations struct {
 }
 
 type ProductFeatures struct {
-	Id       int               `json:"id"`
-	Position int               `json:"position"`
-	Name     []MetaDataRequest `json:"name"`
+	Id       int           `json:"id"`
+	Position int           `json:"position"`
+	Name     []MetaDataReq `json:"name"`
 }
 
 type ProductFeatureValues struct {
-	Id        int               `json:"id"`
-	IdFeature int               `json:"id_feature"`
-	Custom    int               `json:"custom"`
-	Value     []MetaDataRequest `json:"value"`
+	Id        int           `json:"id"`
+	IdFeature int           `json:"id_feature"`
+	Custom    int           `json:"custom"`
+	Value     []MetaDataReq `json:"value"`
 }
 
 type CustomizationFields struct {
-	Id        int               `json:"id"`
-	IdProduct int               `json:"id_product"`
-	Type      int               `json:"type"`
-	Required  int               `json:"required"`
-	IsModule  int               `json:"is_module"`
-	IsDeleted int               `json:"is_deleted"`
-	Name      []MetaDataRequest `json:"name"`
+	Id        int           `json:"id"`
+	IdProduct int           `json:"id_product"`
+	Type      int           `json:"type"`
+	Required  int           `json:"required"`
+	IsModule  int           `json:"is_module"`
+	IsDeleted int           `json:"is_deleted"`
+	Name      []MetaDataReq `json:"name"`
 }

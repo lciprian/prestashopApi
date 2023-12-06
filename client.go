@@ -22,10 +22,10 @@ type PrestashopReq struct {
 }
 
 type Prestashop struct {
-	Product            models.Product            `xml:"product,omitempty"`
-	Variant            models.Variant            `xml:"combination,omitempty"`
-	ProductOption      models.ProductOption      `xml:"product_options,omitempty"`
-	ProductOptionValue models.ProductOptionValue `xml:"product_option_values,omitempty"`
+	Product            models.Product            `json:"product,omitempty"`
+	Variant            models.Variant            `json:"combination,omitempty"`
+	ProductOption      models.ProductOption      `json:"product_option,omitempty"`
+	ProductOptionValue models.ProductOptionValue `json:"product_option_value,omitempty"`
 }
 
 type Client struct {

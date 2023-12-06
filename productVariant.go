@@ -15,7 +15,7 @@ var productVariantBasePath = "combinations"
 type ProductVariationList struct {
 	Limit int
 	Page  int
-	Data  []models.Variant `json:"combinations,omitempty"`
+	Data  []models.VariantL `json:"combinations,omitempty"`
 }
 
 type ProductVariantService struct {
