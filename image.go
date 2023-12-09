@@ -1,10 +1,12 @@
 package prestashopApi
 
 import (
-	"bufio"
+	"bytes"
+	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"net/url"
-	"os"
 )
 
 var imagesProductBasePath = "images/products/%d"
@@ -19,19 +21,15 @@ func newImageService(client *Client) ImageService {
 	}
 }
 
-func (s *ImageService) CreateProductImage(productId int, filePath string) error {
+func (s *ImageService) CreateProductImage(productId int, imageUrl string) error {
 	queryParams := url.Values{}
-	queryParams.Add("image", filePath)
+	queryParams.Add("image", imageUrl)
 
 	// Open the image file
-	file, err := os.Open(filePath)
+	fileReader, err := s.getAsset(imageUrl)
 	if err != nil {
-		fmt.Println("Error opening file:", err)
 		return err
 	}
-	defer file.Close()
-
-	fileReader := bufio.NewReader(file)
 
 	path := fmt.Sprintf(imagesProductBasePath, productId)
 	if err := s.client.FormDataPost(path, queryParams, fileReader); err != nil {
@@ -39,4 +37,23 @@ func (s *ImageService) CreateProductImage(productId int, filePath string) error 
 	}
 
 	return nil
+}
+
+func (s *ImageService) getAsset(assetUrl string) (io.Reader, error) {
+	response, err := http.Get(assetUrl)
+	defer response.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	if response.StatusCode != http.StatusOK {
+		return nil, errors.New(fmt.Sprintf("response code: %d", response.StatusCode))
+	}
+
+	respByte, err := io.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return bytes.NewReader(respByte), nil
 }
