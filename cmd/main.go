@@ -18,14 +18,18 @@ func main() {
 	//getResources(ps)
 
 	//getProducts(ps)
-	//createProducts(ps)
+	createProducts(ps)
 	//updateProducts(ps, "45")
-	//getProductVariants(ps, "44")
-	//createProductVariant(ps, "44")
-	//updateProductVariant(ps, "45", "44")
 	//createProductImage(ps)
+
+	//getProductVariants(ps, "44")
+	//createProductVariant(ps, "58")
+	//updateProductVariant(ps, "45", "44")
+	//deleteProductVariant(ps, "40")
+
 	//getProductOptions(ps, "2")
 	//getProductOptionValue(ps, "2")
+
 	//createProductOptionValue(ps, "2")
 	//updateProductOptionValue(ps, "2")
 
@@ -107,6 +111,15 @@ func updateProductVariant(ps *prestashopApi.PrestaShop, pId, vId string) {
 	}
 
 	fmt.Println("----resources-----", productVariant)
+}
+
+func deleteProductVariant(ps *prestashopApi.PrestaShop, pvId string) {
+	if err := ps.ProductVariant.DeleteProductVariant(pvId); err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----success-----")
 }
 
 func createProductImage(ps *prestashopApi.PrestaShop) {
@@ -226,11 +239,11 @@ func getNewProduct() models.ProductReq {
 			Language: []models.LanguageReq{
 				{
 					ID:   "1",
-					Text: "My awesome Product 2",
+					Text: "My awesome Product 3",
 				},
 				{
 					ID:   "2",
-					Text: "My awesome Product 2",
+					Text: "My awesome Product 3",
 				},
 			},
 		},
@@ -268,13 +281,13 @@ func getNewProductVariant(productId string) models.ProductVariantReq {
 	return models.ProductVariantReq{
 		IdProduct:       productId,
 		MinimalQuantity: 1,
-		Reference:       "testsku1",
+		Reference:       fmt.Sprintf("testsku1-%s", productId),
 		Price:           "123",
 		Weight:          "100",
 		ProductOptionValue: struct {
 			ID string `xml:"id"`
 		}{
-			ID: "5",
+			ID: "40",
 		},
 	}
 }

@@ -230,6 +230,25 @@ func (c *Client) Put(path string, params url.Values, resource io.Reader) ([]byte
 	return body, nil
 }
 
+func (c *Client) Delete(path string, params url.Values) error {
+	req, err := c.NewRequest("DELETE", path, params, nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if err := c.checkResponseEmptyOrError(resp); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) checkResponseEmptyOrError(r *http.Response) error {
 	if http.StatusOK <= r.StatusCode && r.StatusCode < http.StatusMultipleChoices {
 		return nil

@@ -93,3 +93,10 @@ func (s *ProductVariantService) UpdateProductVariant(productVariant models.Produ
 
 	return &psResponse.Variant, nil
 }
+
+func (s *ProductVariantService) DeleteProductVariant(pvId string) error {
+	queryParams := url.Values{}
+
+	pvBasePath := fmt.Sprintf("%s/%s", productVariantBasePath, pvId)
+	return s.client.Delete(pvBasePath, queryParams)
+}
