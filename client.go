@@ -19,6 +19,7 @@ type PrestashopReq struct {
 	Combinations       *models.ProductVariantReq     `xml:"combination,omitempty"`
 	ProductOption      *models.ProductOptionReq      `xml:"product_option,omitempty"`
 	ProductOptionValue *models.ProductOptionValueReq `xml:"product_option_value,omitempty"`
+	ProductStock       *models.ProductStockReq       `xml:"stock_available,omitempty"`
 }
 
 type Prestashop struct {
@@ -26,6 +27,7 @@ type Prestashop struct {
 	Variant            models.Variant            `json:"combination,omitempty"`
 	ProductOption      models.ProductOption      `json:"product_option,omitempty"`
 	ProductOptionValue models.ProductOptionValue `json:"product_option_value,omitempty"`
+	ProductStock       models.ProductStock       `json:"stock_available,omitempty"`
 }
 
 type Client struct {
@@ -117,7 +119,6 @@ func (c *Client) Get(path string, params url.Values, resource interface{}) error
 	}
 
 	//	fmt.Printf("Body : %s", body)
-
 	if err := json.Unmarshal(body, resource); err != nil {
 		//check for empty list
 		var list []interface{}

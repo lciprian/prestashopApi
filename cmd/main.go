@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/lciprian/prestashopApi/models"
 
 	"github.com/lciprian/prestashopApi"
+	"github.com/lciprian/prestashopApi/models"
 )
 
 func main() {
 	appName := "Presta"
-	urlStr := "https://presta.local"
+	urlStr := "http://presto.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -18,20 +18,21 @@ func main() {
 	//getResources(ps)
 
 	//getProducts(ps)
-	createProducts(ps)
+	//createProducts(ps)
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 
 	//getProductVariants(ps, "44")
-	//createProductVariant(ps, "58")
+	//createProductVariant(ps, "44")
 	//updateProductVariant(ps, "45", "44")
-	//deleteProductVariant(ps, "40")
 
 	//getProductOptions(ps, "2")
-	//getProductOptionValue(ps, "2")
 
+	//getProductOptionValue(ps, "2")
 	//createProductOptionValue(ps, "2")
 	//updateProductOptionValue(ps, "2")
+
+	getProductStock(ps, "100")
 
 	fmt.Println("----done-----")
 }
@@ -226,6 +227,29 @@ func updateProductOptionValue(ps *prestashopApi.PrestaShop, pId, vId string) {
 	fmt.Println("----resources-----", productVariant)
 }
 
+func getProductStock(ps *prestashopApi.PrestaShop, prodStockId string) {
+	result, err := ps.ProductOptionValue.GetProductStockAvailable(prodStockId)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", result)
+}
+
+func updateProductStock(ps *prestashopApi.PrestaShop, pId, vId string) {
+	productStockReq := getUpdateProductStock(pId, vId)
+	fmt.Printf("----data---%#v--\n", productStockReq)
+
+	productVariant, err := ps.ProductOptionValue.UpdateProductStockAvailable(productStockReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
 func getNewProduct() models.ProductReq {
 	return models.ProductReq{
 		New:               1,
@@ -369,4 +393,18 @@ func getNewProductOptionValue(attrId string) models.ProductOptionValueReq {
 
 func getUpdateProductOptionValue(variantId, productId string) models.ProductOptionValueReq {
 	return models.ProductOptionValueReq{}
+}
+
+func getUpdateProductStock(variantId, productId string) models.ProductStockReq {
+	return models.ProductStockReq{
+		ID:                 "",
+		IDProduct:          "",
+		IDProductAttribute: "",
+		IDShop:             "",
+		IDShopGroup:        "",
+		Quantity:           "",
+		DependsOnStock:     "",
+		OutOfStock:         "",
+		Location:           "",
+	}
 }
