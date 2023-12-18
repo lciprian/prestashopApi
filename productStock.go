@@ -28,7 +28,7 @@ func newProductStockAvailableService(client *Client) ProductStockAvailableServic
 	}
 }
 
-func (s *ProductOptionValueService) GetProductStockAvailable(prodStockId string) (models.ProductStock, error) {
+func (s *ProductStockAvailableService) GetProductStockAvailable(prodStockId string) (models.ProductStock, error) {
 	queryParams := url.Values{}
 
 	psResponse := Prestashop{}
@@ -42,7 +42,7 @@ func (s *ProductOptionValueService) GetProductStockAvailable(prodStockId string)
 	return psResponse.ProductStock, nil
 }
 
-func (s *ProductOptionValueService) UpdateProductStockAvailable(productStock models.ProductStockReq) (models.ProductStock, error) {
+func (s *ProductStockAvailableService) UpdateProductStockAvailable(productStock models.ProductStockReq) (models.ProductStock, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{ProductStock: &productStock})
@@ -50,7 +50,8 @@ func (s *ProductOptionValueService) UpdateProductStockAvailable(productStock mod
 		return models.ProductStock{}, err
 	}
 
-	data, err := s.client.Post(productStockAvailableBasePath, queryParams, bytes.NewBuffer(buf))
+	paPath := fmt.Sprintf("%s/%s", productStockAvailableBasePath, productStock.ID)
+	data, err := s.client.Put(paPath, queryParams, bytes.NewBuffer(buf))
 	if err != nil {
 		return models.ProductStock{}, err
 	}

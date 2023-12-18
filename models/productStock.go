@@ -13,7 +13,7 @@ type ProductStockReq struct {
 }
 
 type ProductStockL struct {
-	ID                 string `json:"id,omitempty"`
+	ID                 int    `json:"id,omitempty"`
 	IDProduct          string `json:"id_product,omitempty"`
 	IDProductAttribute string `json:"id_product_attribute,omitempty"`
 	IDShop             string `json:"id_shop,omitempty"`
@@ -25,7 +25,7 @@ type ProductStockL struct {
 }
 
 type ProductStock struct {
-	ID                 int    `json:"id,omitempty"`
+	ID                 string `json:"id,omitempty"`
 	IDProduct          string `json:"id_product,omitempty"`
 	IDProductAttribute string `json:"id_product_attribute,omitempty"`
 	IDShop             string `json:"id_shop,omitempty"`
