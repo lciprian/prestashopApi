@@ -259,6 +259,7 @@ func getNewProduct() models.ProductReq {
 		IdShopDefault:     "2",
 		Active:            "1",
 		State:             "1",
+		AvailableForOrder: "1",
 		Type:              "0",
 		Price:             "123",
 		Name: &models.MetaDataReq{
