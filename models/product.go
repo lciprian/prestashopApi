@@ -65,7 +65,7 @@ type ProductReq struct {
 	//UploadableFiles         string     `json:"uploadable_files" xml:"uploadable_files,omitempty"`
 	//RedirectType            string     `json:"redirect_type" xml:"redirect_type,omitempty"`
 	//IdTypeRedirected        string     `json:"id_type_redirected" xml:"id_type_redirected,omitempty"`
-	//AvailableForOrder       string     `json:"available_for_order" xml:"available_for_order,omitempty"`
+	AvailableForOrder string `json:"available_for_order" xml:"available_for_order,omitempty"`
 	//AvailableDate           string     `json:"available_date" xml:"available_date,omitempty"`
 	//ShowCondition           string     `json:"show_condition" xml:"show_condition,omitempty"`
 	//Condition               string     `json:"condition" xml:"condition,omitempty"`
