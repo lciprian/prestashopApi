@@ -37,7 +37,7 @@ type VariantL struct {
 	Isbn              string      `json:"isbn"`
 	Upc               string      `json:"upc"`
 	Mpn               string      `json:"mpn"`
-	Quantity          int         `json:"quantity"`
+	Quantity          string      `json:"quantity"`
 	Reference         string      `json:"reference"`
 	SupplierReference string      `json:"supplier_reference"`
 	WholesalePrice    string      `json:"wholesale_price"`
@@ -68,7 +68,7 @@ type Variant struct {
 	Isbn              string      `json:"isbn"`
 	Upc               string      `json:"upc"`
 	Mpn               string      `json:"mpn"`
-	Quantity          int         `json:"quantity"`
+	Quantity          string      `json:"quantity"`
 	Reference         string      `json:"reference"`
 	SupplierReference string      `json:"supplier_reference"`
 	WholesalePrice    string      `json:"wholesale_price"`
