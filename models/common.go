@@ -13,9 +13,9 @@ type MetaData struct {
 }
 
 type MetaAssociations struct {
-	Id                 string `json:"id" `
-	IdFeatureValue     string `json:"id_feature_value,omitempty"`
-	IdProductAttribute string `json:"id_product_attribute,omitempty"`
+	ID                 string `json:"id" xml:"id,omitempty"`
+	IdFeatureValue     string `json:"id_feature_value,omitempty" xml:"id_feature_value,omitempty"`
+	IdProductAttribute string `json:"id_product_attribute,omitempty" xml:"id_product_attribute,omitempty"`
 }
 
 type MetaDataReq struct {

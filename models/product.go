@@ -80,6 +80,7 @@ type ProductReq struct {
 	//CacheHasAttachments     string     `json:"cache_has_attachments" xml:"cache_has_attachments,omitempty"`
 	//IsVirtual               string     `json:"is_virtual" xml:"is_virtual,omitempty"`
 	//CacheDefaultAttribute json.Number `json:"cache_default_attribute" xml:"cache_default_attribute,omitempty"`
+	Associations ProductAssociations `json:"associations,omitempty" xml:"associations,omitempty"`
 }
 
 type ProductL struct {
@@ -233,7 +234,7 @@ type Product struct {
 }
 
 type ProductAssociations struct {
-	Categories          []MetaAssociations `json:"categories,omitempty"`
+	Categories          []MetaAssociations `json:"categories omitempty" xml:"categories>category,omitempty"`
 	Images              []MetaAssociations `json:"images,omitempty"`
 	Combinations        []MetaAssociations `json:"combinations,omitempty"`
 	ProductOptionValues []MetaAssociations `json:"product_option_values,omitempty"`
@@ -241,6 +242,7 @@ type ProductAssociations struct {
 	StockAvailables     []MetaAssociations `json:"stock_availables,omitempty"`
 }
 
+// associations>product_option_values>p
 type ProductFeatures struct {
 	Id       int           `json:"id"`
 	Position int           `json:"position"`
