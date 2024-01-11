@@ -45,10 +45,12 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	return &productList, nil
 }
 
-func (s *ProductService) GetProduct(pId string) (*models.Product, error) {
+func (s *ProductService) GetProduct(pId string) (*models.ProductL, error) {
 	getProductUrl := fmt.Sprintf("%s/%s", productBasePath, pId)
 
-	psResponse := &Prestashop{}
+	psResponse := &struct {
+		Product models.ProductL `json:"product,omitempty"`
+	}{}
 	if err := s.client.Get(getProductUrl, nil, psResponse); err != nil {
 		return nil, err
 	}

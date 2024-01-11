@@ -18,8 +18,8 @@ func main() {
 	//getResources(ps)
 
 	//getProducts(ps)
-	//createProducts(ps)
-	getProduct(ps, "116")
+	createProducts(ps)
+	//getProduct(ps, "116")
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 

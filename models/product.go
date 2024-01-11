@@ -159,7 +159,7 @@ type ProductL struct {
 }
 
 type Product struct {
-	Id                      int         `json:"id"`
+	Id                      string      `json:"id"`
 	IdManufacturer          string      `json:"id_manufacturer"`
 	IdSupplier              string      `json:"id_supplier"`
 	IdCategoryDefault       string      `json:"id_category_default"`
@@ -190,8 +190,8 @@ type Product struct {
 	IsVirtual               string      `json:"is_virtual"`
 	State                   string      `json:"state"`
 	AdditionalDeliveryTimes string      `json:"additional_delivery_times"`
-	DeliveryInStock         []*MetaData `json:"delivery_in_stock,omitempty"`
-	DeliveryOutStock        []*MetaData `json:"delivery_out_stock,omitempty"`
+	DeliveryInStock         string      `json:"delivery_in_stock,omitempty"`
+	DeliveryOutStock        string      `json:"delivery_out_stock,omitempty"`
 	ProductType             string      `json:"product_type"`
 	OnSale                  string      `json:"on_sale"`
 	OnlineOnly              string      `json:"online_only"`
@@ -221,15 +221,15 @@ type Product struct {
 	DateAdd                 string      `json:"date_add"`
 	DateUpd                 string      `json:"date_upd"`
 	PackStockType           string      `json:"pack_stock_type"`
-	MetaDescription         []*MetaData `json:"meta_description,omitempty"`
-	MetaKeywords            []*MetaData `json:"meta_keywords,omitempty"`
-	MetaTitle               []*MetaData `json:"meta_title,omitempty"`
+	MetaDescription         string      `json:"meta_description,omitempty"`
+	MetaKeywords            string      `json:"meta_keywords,omitempty"`
+	MetaTitle               string      `json:"meta_title,omitempty"`
 	//LinkRewrite             []*MetaData         `json:"link_rewrite,omitempty"`
 	Name             []*MetaData         `json:"name,omitempty"`
 	Description      []*MetaData         `json:"description,omitempty"`
 	DescriptionShort []*MetaData         `json:"description_short,omitempty"`
-	AvailableNow     []*MetaDataReq      `json:"available_now,omitempty"`
-	AvailableLater   []*MetaDataReq      `json:"available_later,omitempty"`
+	AvailableNow     string              `json:"available_now,omitempty"`
+	AvailableLater   string              `json:"available_later,omitempty"`
 	Associations     ProductAssociations `json:"associations"`
 }
 
