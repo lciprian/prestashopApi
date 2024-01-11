@@ -9,7 +9,7 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "https://presta.local"
+	urlStr := "http://presto.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -19,11 +19,12 @@ func main() {
 
 	//getProducts(ps)
 	//createProducts(ps)
+	getProduct(ps, "116")
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 
 	//getProductVariants(ps, "44")
-	//createProductVariant(ps, "44")
+	//createProductVariant(ps, "116")
 	//updateProductVariant(ps, "45", "44")
 
 	//getProductOptions(ps, "2")
@@ -32,9 +33,9 @@ func main() {
 	//createProductOptionValue(ps, "2")
 	//updateProductOptionValue(ps, "2")
 
-	getProductStock(ps, "100")
+	//getProductStock(ps, "100")
 
-	updateProductStock(ps, "100", "49")
+	//updateProductStock(ps, "230", "80")
 
 	fmt.Println("----done-----")
 }
@@ -62,6 +63,17 @@ func createProducts(ps *prestashopApi.PrestaShop) {
 	}
 
 	fmt.Println("----product-----\n", product)
+}
+
+func getProduct(ps *prestashopApi.PrestaShop, pId string) {
+
+	product, err := ps.Product.GetProduct(pId)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----getProduct-----\n", product)
 }
 
 func updateProducts(ps *prestashopApi.PrestaShop, pId string) {
@@ -255,13 +267,23 @@ func updateProductStock(ps *prestashopApi.PrestaShop, prodStockId, productId str
 func getNewProduct() models.ProductReq {
 	return models.ProductReq{
 		New:               1,
-		IdCategoryDefault: "8",
 		IdShopDefault:     "2",
 		Active:            "1",
 		State:             "1",
 		AvailableForOrder: "1",
 		Type:              "0",
 		Price:             "123",
+		IdCategoryDefault: "9",
+		Associations: models.ProductAssociations{
+			Categories: []models.MetaAssociations{
+				{
+					ID: "2",
+				},
+				{
+					ID: "9",
+				},
+			},
+		},
 		Name: &models.MetaDataReq{
 			Language: []models.LanguageReq{
 				{
@@ -308,6 +330,7 @@ func getNewProductVariant(productId string) models.ProductVariantReq {
 	return models.ProductVariantReq{
 		IdProduct:       productId,
 		MinimalQuantity: 1,
+		Quantity:        100,
 		Reference:       fmt.Sprintf("testsku1-%s", productId),
 		Price:           "123",
 		Weight:          "100",
@@ -330,7 +353,7 @@ func getNewUpdateProductVariant(variantId, productId string) models.ProductVaria
 		ProductOptionValue: struct {
 			ID string `xml:"id"`
 		}{
-			ID: "6",
+			ID: "26",
 		},
 	}
 }

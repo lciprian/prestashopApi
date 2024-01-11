@@ -45,6 +45,17 @@ func (s *ProductService) ListProducts(limit, page int) (*ProductList, error) {
 	return &productList, nil
 }
 
+func (s *ProductService) GetProduct(pId string) (*models.Product, error) {
+	getProductUrl := fmt.Sprintf("%s/%s", productBasePath, pId)
+
+	psResponse := &Prestashop{}
+	if err := s.client.Get(getProductUrl, nil, psResponse); err != nil {
+		return nil, err
+	}
+
+	return &psResponse.Product, nil
+}
+
 func (s *ProductService) CreateProduct(product models.ProductReq) (*models.Product, error) {
 	queryParams := url.Values{}
 
