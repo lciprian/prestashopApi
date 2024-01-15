@@ -225,9 +225,9 @@ type Product struct {
 	MetaKeywords            string      `json:"meta_keywords,omitempty"`
 	MetaTitle               string      `json:"meta_title,omitempty"`
 	//LinkRewrite             []*MetaData         `json:"link_rewrite,omitempty"`
-	Name             []*MetaData         `json:"name,omitempty"`
-	Description      []*MetaData         `json:"description,omitempty"`
-	DescriptionShort []*MetaData         `json:"description_short,omitempty"`
+	Name             string              `json:"name,omitempty"`
+	Description      string              `json:"description,omitempty"`
+	DescriptionShort string              `json:"description_short,omitempty"`
 	AvailableNow     string              `json:"available_now,omitempty"`
 	AvailableLater   string              `json:"available_later,omitempty"`
 	Associations     ProductAssociations `json:"associations"`
