@@ -115,8 +115,8 @@ type ProductL struct {
 	IsVirtual               string              `json:"is_virtual"`
 	State                   string              `json:"state"`
 	AdditionalDeliveryTimes string              `json:"additional_delivery_times"`
-	DeliveryInStock         []*MetaData         `json:"delivery_in_stock,omitempty"`
-	DeliveryOutStock        []*MetaData         `json:"delivery_out_stock,omitempty"`
+	DeliveryInStock         string              `json:"delivery_in_stock,omitempty"`
+	DeliveryOutStock        string              `json:"delivery_out_stock,omitempty"`
 	ProductType             string              `json:"product_type"`
 	OnSale                  string              `json:"on_sale"`
 	OnlineOnly              string              `json:"online_only"`
@@ -146,15 +146,15 @@ type ProductL struct {
 	DateAdd                 string              `json:"date_add"`
 	DateUpd                 string              `json:"date_upd"`
 	PackStockType           string              `json:"pack_stock_type"`
-	MetaDescription         []*MetaData         `json:"meta_description,omitempty"`
-	MetaKeywords            []*MetaData         `json:"meta_keywords,omitempty"`
-	MetaTitle               []*MetaData         `json:"meta_title,omitempty"`
-	LinkRewrite             []*MetaData         `json:"link_rewrite"`
-	Name                    []*MetaData         `json:"name,omitempty"`
-	Description             []*MetaData         `json:"description,omitempty"`
-	DescriptionShort        []*MetaData         `json:"description_short,omitempty"`
-	AvailableNow            []*MetaDataReq      `json:"available_now,omitempty"`
-	AvailableLater          []*MetaDataReq      `json:"available_later,omitempty"`
+	MetaDescription         string              `json:"meta_description,omitempty"`
+	MetaKeywords            string              `json:"meta_keywords,omitempty"`
+	MetaTitle               string              `json:"meta_title,omitempty"`
+	LinkRewrite             string              `json:"link_rewrite"`
+	Name                    string              `json:"name,omitempty"`
+	Description             string              `json:"description,omitempty"`
+	DescriptionShort        string              `json:"description_short,omitempty"`
+	AvailableNow            string              `json:"available_now,omitempty"`
+	AvailableLater          string              `json:"available_later,omitempty"`
 	Associations            ProductAssociations `json:"associations"`
 }
 
