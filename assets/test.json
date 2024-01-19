@@ -1,11 +1,119 @@
 {
-  "id": 100,
-  "id_product": "58",
-  "id_product_attribute": "0",
-  "id_shop": "1",
-  "id_shop_group": "0",
-  "quantity": "0",
-  "depends_on_stock": "0",
-  "out_of_stock": "2",
-  "location": ""
+  "product": {
+    "id": "65",
+    "id_manufacturer": "",
+    "id_supplier": "",
+    "id_category_default": "8",
+    "new": "1",
+    "cache_default_attribute": null,
+    "id_default_image": "",
+    "id_default_combination": 0,
+    "id_tax_rules_group": "",
+    "position_in_category": "",
+    "manufacturer_name": false,
+    "quantity": null,
+    "type": "simple",
+    "id_shop_default": "1",
+    "reference": null,
+    "supplier_reference": null,
+    "location": null,
+    "width": null,
+    "height": "150",
+    "depth": "50",
+    "weight": "100",
+    "quantity_discount": null,
+    "ean13": null,
+    "isbn": null,
+    "upc": null,
+    "mpn": null,
+    "cache_is_pack": null,
+    "cache_has_attachments": null,
+    "is_virtual": null,
+    "state": "1",
+    "additional_delivery_times": null,
+    "delivery_in_stock": "",
+    "delivery_out_stock": "",
+    "product_type": null,
+    "on_sale": null,
+    "online_only": null,
+    "ecotax": null,
+    "minimal_quantity": null,
+    "low_stock_threshold": null,
+    "low_stock_alert": null,
+    "price": "123",
+    "wholesale_price": null,
+    "unity": null,
+    "unit_price_ratio": null,
+    "additional_shipping_cost": null,
+    "customizable": null,
+    "text_fields": null,
+    "uploadable_files": null,
+    "active": "1",
+    "redirect_type": null,
+    "id_type_redirected": "",
+    "available_for_order": null,
+    "available_date": null,
+    "show_condition": null,
+    "condition": "new",
+    "show_price": null,
+    "indexed": null,
+    "visibility": "both",
+    "advanced_stock_management": null,
+    "date_add": "2023-12-13 15:37:56",
+    "date_upd": "2023-12-13 15:37:56",
+    "pack_stock_type": null,
+    "meta_description": "",
+    "meta_keywords": "",
+    "meta_title": "",
+    "link_rewrite": [
+      {
+        "id": "1",
+        "value": "my-awesome-product-30"
+      },
+      {
+        "id": "2",
+        "value": "my-awesome-product-30"
+      }
+    ],
+    "name": [
+      {
+        "id": "1",
+        "value": "My awesome Product 30"
+      },
+      {
+        "id": "2",
+        "value": "My awesome Product 30"
+      }
+    ],
+    "description": [
+      {
+        "id": "1",
+        "value": "My awesome Product Description 2"
+      },
+      {
+        "id": "2",
+        "value": "My awesome Product Description 2"
+      }
+    ],
+    "description_short": [
+      {
+        "id": "1",
+        "value": "My awesome Product DescriptionShort 2"
+      },
+      {
+        "id": "2",
+        "value": "My awesome Product DescriptionShort 2"
+      }
+    ],
+    "available_now": "",
+    "available_later": "",
+    "associations": {
+      "stock_availables": [
+        {
+          "id": "146",
+          "id_product_attribute": "0"
+        }
+      ]
+    }
+  }
 }

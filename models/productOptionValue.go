@@ -9,17 +9,17 @@ type ProductOptionValueReq struct {
 }
 
 type ProductOptionValueL struct {
-	ID               int        `json:"id,omitempty"`
-	IDAttributeGroup string     `json:"id_attribute_group,omitempty"`
-	Color            string     `json:"color,omitempty"`
-	Position         string     `json:"position,omitempty"`
-	Name             []Language `json:"name,omitempty"`
+	ID               int    `json:"id,omitempty"`
+	IDAttributeGroup string `json:"id_attribute_group,omitempty"`
+	Color            string `json:"color,omitempty"`
+	Position         string `json:"position,omitempty"`
+	Name             string `json:"name,omitempty"`
 }
 
 type ProductOptionValue struct {
-	ID               string     `json:"id,omitempty"`
-	IDAttributeGroup string     `json:"id_attribute_group,omitempty"`
-	Color            string     `json:"color,omitempty"`
-	Position         int        `json:"position,omitempty"`
-	Name             []Language `json:"name,omitempty"`
+	ID               string `json:"id,omitempty"`
+	IDAttributeGroup string `json:"id_attribute_group,omitempty"`
+	Color            string `json:"color,omitempty"`
+	Position         int    `json:"position,omitempty"`
+	Name             string `json:"name,omitempty"`
 }
