@@ -17,13 +17,13 @@ func main() {
 
 	//getResources(ps)
 
-	//getProducts(ps)
-	createProducts(ps)
+	//	getProducts(ps)
+	//createProducts(ps)
 	//getProduct(ps, "116")
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 
-	//getProductVariants(ps, "44")
+	getProductVariants(ps, "126")
 	//createProductVariant(ps, "116")
 	//updateProductVariant(ps, "45", "44")
 
