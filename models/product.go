@@ -5,7 +5,7 @@ import "encoding/json"
 type ProductReq struct {
 	Id string `json:"id" xml:"id,omitempty"`
 	//IdManufacturer        json.Number `json:"id_manufacturer" xml:"id_manufacturer,omitempty"`
-	//IdSupplier            json.Number `json:"id_supplier" xml:"id_supplier,omitempty"`
+	IdSupplier        json.Number `json:"id_supplier" xml:"id_supplier,omitempty"`
 	IdCategoryDefault string      `json:"id_category_default" xml:"id_category_default,omitempty"`
 	New               interface{} `json:"new" xml:"new,omitempty"`
 	IdDefaultImage    string      `json:"id_default_image" xml:"id_default_image,omitempty"`
