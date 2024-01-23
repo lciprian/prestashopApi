@@ -13,10 +13,11 @@ type ProductReq struct {
 	//IdTaxRulesGroup       json.Number `json:"id_tax_rules_group" xml:"id_tax_rules_group,omitempty"`
 	//PositionInCategory    json.Number `json:"position_in_category" xml:"position_in_category,omitempty"`
 	//ManufacturerName      interface{} `json:"manufacturer_name" xml:"manufacturer_name,omitempty"`
-	Quantity      string `json:"quantity" xml:"quantity,omitempty"`
-	Type          string `json:"type" xml:"type,omitempty"`
-	IdShopDefault string `json:"id_shop_default" xml:"id_shop_default,omitempty"`
-	Reference     string `json:"reference" xml:"reference,omitempty"`
+	Quantity        string `json:"quantity" xml:"quantity,omitempty"`
+	MinimalQuantity string `json:"minimal_quantity" xml:"minimal_quantity,omitempty"`
+	Type            string `json:"type" xml:"type,omitempty"`
+	IdShopDefault   string `json:"id_shop_default" xml:"id_shop_default,omitempty"`
+	Reference       string `json:"reference" xml:"reference,omitempty"`
 	//SupplierReference     string      `json:"supplier_reference" xml:"supplier_reference,omitempty"`
 	//Location              string      `json:"location" xml:"location,omitempty"`
 

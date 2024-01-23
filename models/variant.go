@@ -9,6 +9,7 @@ type ProductVariantReq struct {
 	Upc                string      `json:"upc" xml:"upc,omitempty"`
 	Mpn                string      `json:"mpn" xml:"mpn,omitempty"`
 	Quantity           int         `json:"quantity" xml:"quantity,omitempty"`
+	MinimalQuantity    int         `json:"minimal_quantity" xml:"minimal_quantity,omitempty"`
 	Reference          string      `json:"reference" xml:"reference,omitempty"`
 	SupplierReference  string      `json:"supplier_reference" xml:"supplier_reference,omitempty"`
 	WholesalePrice     string      `json:"wholesale_price" xml:"wholesale_price,omitempty"`
@@ -16,7 +17,6 @@ type ProductVariantReq struct {
 	Ecotax             string      `json:"ecotax" xml:"ecotax,omitempty"`
 	Weight             string      `json:"weight" xml:"weight,omitempty"`
 	UnitPriceImpact    string      `json:"unit_price_impact" xml:"unit_price_impact,omitempty"`
-	MinimalQuantity    int         `json:"minimal_quantity" xml:"minimal_quantity,omitempty"`
 	LowStockThreshold  interface{} `json:"low_stock_threshold" xml:"low_stock_threshold,omitempty"`
 	LowStockAlert      int         `json:"low_stock_alert" xml:"low_stock_alert,omitempty"`
 	DefaultOn          interface{} `json:"default_on" xml:"default_on,omitempty"`
