@@ -35,6 +35,7 @@ type ProductReq struct {
 	MetaDescription *MetaDataReq `json:"meta_description,omitempty" xml:"meta_description,omitempty"`
 	MetaKeywords    *MetaDataReq `json:"meta_keywords,omitempty" xml:"meta_keywords,omitempty"`
 	MetaTitle       *MetaDataReq `json:"meta_title,omitempty" xml:"meta_title,omitempty"`
+	LinkRewrite     *MetaDataReq `json:"link_rewrite" xml:"link_rewrite,omitempty"`
 
 	Width  string `json:"width" xml:"width,omitempty"`
 	Height string `json:"height" xml:"height,omitempty"`
@@ -76,7 +77,6 @@ type ProductReq struct {
 	//DateAdd                 string     `json:"date_add" xml:"date_add,omitempty"`
 	//DateUpd                 string     `json:"date_upd" xml:"date_upd,omitempty"`
 	//PackStockType           string     `json:"pack_stock_type" xml:"pack_stock_type,omitempty"`
-	//LinkRewrite             []MetaDataReq `json:"link_rewrite" xml:"link_rewrite,omitempty"`
 	//CacheIsPack             string     `json:"cache_is_pack" xml:"cache_is_pack,omitempty"`
 	//CacheHasAttachments     string     `json:"cache_has_attachments" xml:"cache_has_attachments,omitempty"`
 	//IsVirtual               string     `json:"is_virtual" xml:"is_virtual,omitempty"`
