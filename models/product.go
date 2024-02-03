@@ -56,8 +56,8 @@ type ProductReq struct {
 	//LowStockThreshold       interface{} `json:"low_stock_threshold" xml:"low_stock_threshold,omitempty"`
 	//LowStockAlert           string      `json:"low_stock_alert" xml:"low_stock_alert,omitempty"`
 
-	Price string `json:"price" xml:"price"`
-	//ShowPrice               string     `json:"show_price" xml:"show_price,omitempty"`
+	Price     string `json:"price" xml:"price"`
+	ShowPrice string `json:"show_price" xml:"show_price,omitempty"`
 	//WholesalePrice          string     `json:"wholesale_price" xml:"wholesale_price,omitempty"`
 	//Unity                   string     `json:"unity" xml:"unity,omitempty"`
 	//UnitPriceRatio          string     `json:"unit_price_ratio" xml:"unit_price_ratio,omitempty"`
