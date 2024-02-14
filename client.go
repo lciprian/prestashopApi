@@ -20,6 +20,7 @@ type PrestashopReq struct {
 	ProductOption      *models.ProductOptionReq      `xml:"product_option,omitempty"`
 	ProductOptionValue *models.ProductOptionValueReq `xml:"product_option_value,omitempty"`
 	ProductStock       *models.ProductStockReq       `xml:"stock_available,omitempty"`
+	ProductSupplier    *models.ProductSupplierReq    `json:"product_suppliers,omitempty"`
 }
 
 type Prestashop struct {
@@ -28,6 +29,7 @@ type Prestashop struct {
 	ProductOption      models.ProductOption      `json:"product_option,omitempty"`
 	ProductOptionValue models.ProductOptionValue `json:"product_option_value,omitempty"`
 	ProductStock       models.ProductStock       `json:"stock_available,omitempty"`
+	ProductSupplier    models.ProductSupplier    `json:"product_suppliers,omitempty"`
 }
 
 type Client struct {

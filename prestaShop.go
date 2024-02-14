@@ -27,6 +27,7 @@ type PrestaShop struct {
 	ProductOption      ProductOptionService
 	ProductOptionValue ProductOptionValueService
 	ProductStock       ProductStockAvailableService
+	ProductSupplier    ProductSupplierService
 	Image              ImageService
 }
 
@@ -48,6 +49,7 @@ func NewPrestaShop(appName, urlStr, apiKey string) *PrestaShop {
 	ps.ProductOption = newProductOptionService(client)
 	ps.ProductOptionValue = newProductOptionValueService(client)
 	ps.ProductStock = newProductStockAvailableService(client)
+	ps.ProductSupplier = newProductSupplierService(client)
 	ps.Image = newImageService(client)
 
 	return &ps

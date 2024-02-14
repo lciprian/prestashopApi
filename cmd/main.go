@@ -9,7 +9,7 @@ import (
 
 func main() {
 	appName := "Presta"
-	urlStr := "http://presto.local"
+	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
@@ -23,7 +23,7 @@ func main() {
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 
-	getProductVariants(ps, "126")
+	//	getProductVariants(ps, "126")
 	//createProductVariant(ps, "116")
 	//updateProductVariant(ps, "45", "44")
 
@@ -34,8 +34,11 @@ func main() {
 	//updateProductOptionValue(ps, "2")
 
 	//getProductStock(ps, "100")
-
 	//updateProductStock(ps, "230", "80")
+
+	//getProductSupplier(ps, "2")
+	createProductSupplier(ps, "514")
+	//updateProductSupplier(ps, "2")
 
 	fmt.Println("----done-----")
 }
@@ -264,10 +267,34 @@ func updateProductStock(ps *prestashopApi.PrestaShop, prodStockId, productId str
 	fmt.Println("----resources-----", prodStock)
 }
 
+func getProductSupplier(ps *prestashopApi.PrestaShop, prodStockId string) {
+	result, err := ps.ProductSupplier.GetProductSupplier(prodStockId)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Printf("----resources-----%#v", result)
+}
+
+func createProductSupplier(ps *prestashopApi.PrestaShop, pId string) {
+	productOptionReq := getNewProductSupplier(pId)
+	fmt.Printf("----data---%#v--\n", productOptionReq)
+
+	productVariant, err := ps.ProductSupplier.CreateProductSupplier(productOptionReq)
+	if err != nil {
+		fmt.Println("----done-----", err)
+		return
+	}
+
+	fmt.Println("----resources-----", productVariant)
+}
+
 func getNewProduct() models.ProductReq {
 	return models.ProductReq{
 		New:               1,
 		IdShopDefault:     "2",
+		IdSupplier:        "3",
 		Active:            "1",
 		State:             "1",
 		AvailableForOrder: "1",
@@ -288,11 +315,11 @@ func getNewProduct() models.ProductReq {
 			Language: []models.LanguageReq{
 				{
 					ID:   "1",
-					Text: "My awesome Product 31",
+					Text: "My awesome Product 31 updated",
 				},
 				{
 					ID:   "2",
-					Text: "My awesome Product 31",
+					Text: "My awesome Product 31 updated",
 				},
 			},
 		},
@@ -414,6 +441,14 @@ func getNewProductOptionValue(attrId string) models.ProductOptionValueReq {
 				Text: "Marsala",
 			},
 		},
+	}
+}
+
+func getNewProductSupplier(prodId string) models.ProductSupplierReq {
+	return models.ProductSupplierReq{
+		IDProduct:          prodId,
+		IDSupplier:         "2",
+		IDProductAttribute: "0",
 	}
 }
 
