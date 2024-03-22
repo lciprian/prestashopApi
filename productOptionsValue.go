@@ -43,7 +43,7 @@ func (s *ProductOptionValueService) ListProductOptionValues(prodOptionId string,
 	queryParams.Add("display", "full")
 	queryParams.Add("limit", fmt.Sprintf("%d,%d", offset, limit))
 
-	if prodOptionId == "" {
+	if prodOptionId != "" {
 		queryParams.Add("filter[id_attribute_group]", prodOptionId)
 	}
 
