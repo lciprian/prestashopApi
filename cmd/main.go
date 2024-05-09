@@ -12,9 +12,6 @@ func main() {
 	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
-	//urlStr = "https://dev.distinctiv.ro"
-	//apiKey = "Sk5RSklOWUxIV0I5VFlJUjY0RDlHTlpQQjNTWTlDV1k6"
-
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
 	fmt.Println("-----------", ps)
 
@@ -459,16 +456,14 @@ func getUpdateProductOptionValue(variantId, productId string) models.ProductOpti
 	return models.ProductOptionValueReq{}
 }
 
-func getUpdateProductStock(prodStockId, productId string) models.ProductStockReq {
-	return models.ProductStockReq{
-		ID: prodStockId,
-		ProductStockData: models.ProductStockData{
-			IDProduct:          productId,
-			IDProductAttribute: "1",
-			IDShop:             "1",
-			Quantity:           "10",
-			DependsOnStock:     "0",
-			OutOfStock:         "2",
-		},
+func getUpdateProductStock(prodStockId, productId string) models.ProductStock {
+	return models.ProductStock{
+		ID:                 prodStockId,
+		IDProduct:          productId,
+		IDProductAttribute: "1",
+		IDShop:             "1",
+		Quantity:           "10",
+		DependsOnStock:     "0",
+		OutOfStock:         "2",
 	}
 }

@@ -19,7 +19,7 @@ type PrestashopReq struct {
 	Combinations       *models.ProductVariantReq     `xml:"combination,omitempty"`
 	ProductOption      *models.ProductOptionReq      `xml:"product_option,omitempty"`
 	ProductOptionValue *models.ProductOptionValueReq `xml:"product_option_value,omitempty"`
-	ProductStock       *models.ProductStockReq       `xml:"stock_available,omitempty"`
+	ProductStock       *models.ProductStock          `xml:"stock_available,omitempty"`
 	ProductSupplier    *models.ProductSupplierReq    `json:"product_suppliers,omitempty"`
 }
 

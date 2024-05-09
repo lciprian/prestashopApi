@@ -38,11 +38,10 @@ func (s *ProductStockAvailableService) GetProductStockAvailable(prodStockId stri
 		return models.ProductStock{}, err
 	}
 
-	//	fmt.Println("-ListProducts---------", products)
 	return psResponse.ProductStock, nil
 }
 
-func (s *ProductStockAvailableService) UpdateProductStockAvailable(productStock models.ProductStockReq) (models.ProductStock, error) {
+func (s *ProductStockAvailableService) UpdateProductStockAvailable(productStock models.ProductStock) (models.ProductStock, error) {
 	queryParams := url.Values{}
 
 	buf, err := xml.Marshal(PrestashopReq{ProductStock: &productStock})
