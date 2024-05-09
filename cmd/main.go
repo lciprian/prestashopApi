@@ -12,14 +12,17 @@ func main() {
 	urlStr := "https://presta.local"
 	apiKey := "UVhZNTFDNlRXOUNUUURMWjI3NFVCQk5ENlpGNzZENEU6"
 
+	//urlStr = "https://dev.distinctiv.ro"
+	//apiKey = "Sk5RSklOWUxIV0I5VFlJUjY0RDlHTlpQQjNTWTlDV1k6"
+
 	ps := prestashopApi.NewPrestaShop(appName, urlStr, apiKey)
 	fmt.Println("-----------", ps)
 
 	//getResources(ps)
 
-	//	getProducts(ps)
+	//getProducts(ps)
 	//createProducts(ps)
-	//getProduct(ps, "116")
+	//getProduct(ps, "1343")
 	//updateProducts(ps, "45")
 	//createProductImage(ps)
 
@@ -29,15 +32,15 @@ func main() {
 
 	//getProductOptions(ps, "2")
 
-	//getProductOptionValue(ps, "2")
+	//getProductOptionValue(ps, "5")
 	//createProductOptionValue(ps, "2")
 	//updateProductOptionValue(ps, "2")
 
-	//getProductStock(ps, "100")
+	getProductStock(ps, "43")
 	//updateProductStock(ps, "230", "80")
 
 	//getProductSupplier(ps, "2")
-	createProductSupplier(ps, "514")
+	//createProductSupplier(ps, "514")
 	//updateProductSupplier(ps, "2")
 
 	fmt.Println("----done-----")
@@ -209,7 +212,7 @@ func updateProductOption(ps *prestashopApi.PrestaShop, pId, vId string) {
 }
 
 func getProductOptionValue(ps *prestashopApi.PrestaShop, pId string) {
-	result, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 1)
+	result, err := ps.ProductOptionValue.ListProductOptionValues(pId, 100, 3)
 	if err != nil {
 		fmt.Println("----done-----", err)
 		return
@@ -458,12 +461,14 @@ func getUpdateProductOptionValue(variantId, productId string) models.ProductOpti
 
 func getUpdateProductStock(prodStockId, productId string) models.ProductStockReq {
 	return models.ProductStockReq{
-		ID:                 prodStockId,
-		IDProduct:          productId,
-		IDProductAttribute: "1",
-		IDShop:             "1",
-		Quantity:           "10",
-		DependsOnStock:     "0",
-		OutOfStock:         "2",
+		ID: prodStockId,
+		ProductStockData: models.ProductStockData{
+			IDProduct:          productId,
+			IDProductAttribute: "1",
+			IDShop:             "1",
+			Quantity:           "10",
+			DependsOnStock:     "0",
+			OutOfStock:         "2",
+		},
 	}
 }

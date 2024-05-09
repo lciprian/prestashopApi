@@ -1,6 +1,11 @@
 package models
 
-import "encoding/xml"
+import (
+	"encoding/json"
+	"encoding/xml"
+	"fmt"
+	"strconv"
+)
 
 type Prestashop struct {
 	XMLName xml.Name   `xml:"prestashop"`
@@ -37,4 +42,27 @@ type ResponseErrors struct {
 		Code    int    `json:"code"`
 		Message string `json:"message"`
 	} `json:"errors"`
+}
+
+type CustomID struct {
+	Value string
+}
+
+// UnmarshalJSON implements the custom unmarshalling logic for CustomID
+func (c *CustomID) UnmarshalJSON(data []byte) error {
+	var intValue int
+	if err := json.Unmarshal(data, &intValue); err == nil {
+		c.Value = strconv.Itoa(intValue)
+		return nil
+	}
+
+	// Try unmarshalling as a string
+	var strValue string
+	if err := json.Unmarshal(data, &strValue); err == nil {
+		c.Value = strValue
+		return nil
+	}
+
+	// If neither works, return an error
+	return fmt.Errorf("invalid data type for id: %s", data)
 }

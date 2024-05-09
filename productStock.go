@@ -15,7 +15,7 @@ var productStockAvailableBasePath = "stock_availables"
 type ProductStockAvailableList struct {
 	Limit int
 	Page  int
-	Data  []models.ProductStockL `json:"product_option_values,omitempty"`
+	Data  []models.ProductStock `json:"product_option_values,omitempty"`
 }
 
 type ProductStockAvailableService struct {
